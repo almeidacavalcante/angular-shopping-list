@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { InsertItemComponent } from './insert-item/insert-item.component';
-import { ListItemsComponent } from './list-items/list-items.component';
+import { InsertItemComponent } from './views/insert-item/insert-item.component';
+import { ListItemsComponent } from './views/list-items/list-items.component';
+import { ShoppingController } from './controllers/shopping-controller';
+import { ItemService } from './services/item/item.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,17 @@ import { ListItemsComponent } from './list-items/list-items.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    ItemService,
+    ShoppingController
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  private controller : ShoppingController;
+
+  constructor() {
+    this.controller = new ShoppingController();
+  }
+}
