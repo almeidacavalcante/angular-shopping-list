@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../../services/item/item.service';
-import { Item } from '../../models/Item';
-import { ShoppingController } from '../../controllers/shopping-controller';
+import { ItemService } from '../../../services/item/item.service';
+import { Item } from '../../../models/Item';
+import { ShoppingController } from '../../../controllers/shopping-controller';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class ListItemsComponent {
 
   private items : Item[];
 
-  constructor() { 
+  constructor(private service: ItemService) { 
 
   }
 
@@ -21,7 +21,7 @@ export class ListItemsComponent {
    * update
    */
   public update(items: Item[]) {
-    this.items = items;
+    this.items = this.service.items;
   }
 
 

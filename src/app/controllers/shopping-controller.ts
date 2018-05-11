@@ -1,6 +1,5 @@
 import { ItemService } from "../services/item/item.service";
 import { Item } from "../models/Item";
-import { ListItemsComponent } from "../views/list-items/list-items.component";
 
 export class ShoppingController {
 

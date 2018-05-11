@@ -1,7 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { ListItemsComponent } from '../list-items/list-items.component';
-import { ShoppingController } from '../../controllers/shopping-controller';
-import { Item } from '../../models/Item';
+import { ShoppingController } from '../../../controllers/shopping-controller';
+import { Item } from '../../../models/Item';
+import { ItemService } from '../../../services/item/item.service';
+
 
 @Component({
   selector: 'app-insert-item',
@@ -13,11 +17,9 @@ export class InsertItemComponent {
 
   @Input() itemName: string;
 
-  private controller: ShoppingController;
 
 
-  constructor(){
-    this.controller = new ShoppingController();
+  constructor(private service: ItemService){
 
   }
 
@@ -26,7 +28,7 @@ export class InsertItemComponent {
 
       let item = new Item(this.itemName, new Date());
 
-      this.controller.insertItem(item);
+      this.service.insertItem(item);
     }
   }
 }
