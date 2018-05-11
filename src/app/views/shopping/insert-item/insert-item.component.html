@@ -1,8 +1,8 @@
 
 
 <div class="input-group mb-3">
-  <input  type="text" [(ngModel)]="itemName" class="form-control" placeholder="Enter the item..." aria-label="Enter the item..." aria-describedby="basic-addon2">
+  <input #cItem type="text" (keyup.enter)="insertItem(cItem.value)"  [(ngModel)]="itemName" (input)="itemName = $event.target.value" class="form-control" placeholder="Enter the item..." aria-label="Enter the item..." aria-describedby="basic-addon2">
   <div class="input-group-append">
-    <button (click)="insertItem()" class="btn btn-outline-primary" type="button">Button</button>
+    <button (click)="insertItem()" class="btn btn-outline-primary" type="button">Add</button>
   </div>
 </div>

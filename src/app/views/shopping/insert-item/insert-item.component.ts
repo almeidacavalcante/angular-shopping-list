@@ -15,13 +15,9 @@ import { ItemService } from '../../../services/item/item.service';
 
 export class InsertItemComponent {
 
-  @Input() itemName: string;
-
-
-
-  constructor(private service: ItemService){
-
-  }
+  private itemName: string = '';
+  
+  constructor(private service: ItemService){}
 
   private insertItem() {
     if (this.itemName != undefined) {
@@ -29,6 +25,7 @@ export class InsertItemComponent {
       let item = new Item(this.itemName, new Date());
 
       this.service.insertItem(item);
+      this.itemName = '';
     }
   }
 }

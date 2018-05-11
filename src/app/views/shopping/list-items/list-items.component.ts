@@ -17,6 +17,14 @@ export class ListItemsComponent {
 
   }
 
+  ngOnInit() {
+    this.service.listUpdater.subscribe(
+      (lang) => {
+        this.items = this.service.items;
+      }
+    );
+  }
+
   /**
    * update
    */
@@ -24,5 +32,10 @@ export class ListItemsComponent {
     this.items = this.service.items;
   }
 
-
+  /**
+   * delete
+   */
+  public delete(item: Item,event: Event) {
+    if (event.srcElement.nodeName == 'BUTTON') this.service.delete(item);
+  }
 }

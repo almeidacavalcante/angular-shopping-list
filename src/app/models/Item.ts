@@ -15,4 +15,11 @@ export class Item {
     public get date() : Date {
         return this._date;
     }
+
+    /**
+     * dateFormat
+     */
+    public dateFormat() {
+        return `${this._date.getDate()}/${this._date.getMonth()}/${this._date.getFullYear()}`;
+    }
 }
