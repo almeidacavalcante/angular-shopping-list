@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../../../services/item/item.service';
 import { Item } from '../../../models/Item';
 import { ShoppingController } from '../../../controllers/shopping-controller';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import * as $ from 'jquery';
 
 
 @Component({
@@ -17,12 +19,27 @@ export class ListItemsComponent {
 
   }
 
+  /**
+   * showModal
+   */
+  public showModal() {
+    debugger
+    $('#exampleModal').modal('show')
+  }
+
   ngOnInit() {
     this.service.listUpdater.subscribe(
       (lang) => {
         this.items = this.service.items;
       }
     );
+  }
+
+  /**
+   * showItemPopup
+   */
+  public showItemPopup() {
+    this.service.show.next(true);
   }
 
   /**
@@ -33,9 +50,22 @@ export class ListItemsComponent {
   }
 
   /**
-   * delete
+   * takeAction
    */
-  public delete(item: Item,event: Event) {
-    if (event.srcElement.nodeName == 'BUTTON') this.service.delete(item);
+  public takeAction(item: Item, event: Event) {
+    if (event.srcElement.getAttribute('id') == Action.purchase){
+      this.service.purchase(item);
+      let button = event.srcElement;
+      this.showItemPopup(); 
+      
+      
+    }else if (event.srcElement.getAttribute('id') == Action.delete){
+      this.service.delete(item);
+    }
   }
+}
+
+enum Action {
+  purchase = 'purchase',
+  delete = 'delete'
 }

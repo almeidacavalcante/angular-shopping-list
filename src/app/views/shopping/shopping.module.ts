@@ -4,6 +4,7 @@ import { InsertItemComponent } from './insert-item/insert-item.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ShoppingViewComponent } from './shopping-view/shopping-view.component';
 import { FormsModule } from '@angular/forms';
+import { PriceComponent } from './price/price.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     InsertItemComponent,
     ListItemsComponent,
-    ShoppingViewComponent]
+    ShoppingViewComponent,
+    PriceComponent]
 })
 export class ShoppingModule {}

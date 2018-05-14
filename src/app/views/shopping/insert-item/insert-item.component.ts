@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import * as $ from "../../../../../node_modules/jquery";
 
 import { ListItemsComponent } from '../list-items/list-items.component';
 import { ShoppingController } from '../../../controllers/shopping-controller';
-import { Item } from '../../../models/Item';
+import { Item, Unit } from '../../../models/Item';
 import { ItemService } from '../../../services/item/item.service';
+
 
 
 @Component({
@@ -22,10 +24,26 @@ export class InsertItemComponent {
   private insertItem() {
     if (this.itemName != undefined) {
 
-      let item = new Item(this.itemName, new Date());
+      let item = new Item(this.itemName, new Date(), Unit.Kg);
 
       this.service.insertItem(item);
       this.itemName = '';
     }
+  }
+
+  selected = true;
+
+  /**
+   * toggle
+   */
+  public toggle(event: Event) {
+    console.log(event.target);
+    (<Element>event.target).setAttribute('checked', '');
+    console.log((<Element>event.target).parentElement.parentElement);
+    $(event.target).button('toggle')
+    
+    
+
+    
   }
 }

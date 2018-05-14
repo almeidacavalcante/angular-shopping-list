@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { Item } from "../../models/Item";
 import { ListItemsComponent } from "../../views/shopping/list-items/list-items.component";
+import { Subject } from "rxjs";
 
 
 @Injectable({
@@ -8,6 +9,8 @@ import { ListItemsComponent } from "../../views/shopping/list-items/list-items.c
 })
 export class ItemService {
 
+  public show: Subject<boolean> = new Subject();
+  
   private _items: Item[];
   public listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
 
@@ -30,5 +33,12 @@ export class ItemService {
    */
   public delete(item: Item) {
      this._items.splice(this.items.indexOf(item), 1);
+  }
+
+  /**
+   * purchase
+   */
+  public purchase(item: Item) {
+    item.purchase();
   }
 }

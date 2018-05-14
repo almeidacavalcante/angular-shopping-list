@@ -6,3 +6,19 @@
     <button (click)="insertItem()" class="btn btn-outline-primary" type="button">Add</button>
   </div>
 </div>
+<form action="">
+  <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+    <label class="btn btn-primary">
+      <input type="radio" (click)="toggle($event)" name="options" id="option1" autocomplete="off"> Kg
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" (click)="toggle($event)" name="options" id="option2" autocomplete="off"> Lt
+    </label>
+    <label class="btn btn-primary">
+      <input type="radio" (click)="toggle($event)" name="options" id="option3" autocomplete="off"> Pack
+    </label>
+  </div>
+
+</form>
+<hr>
+
