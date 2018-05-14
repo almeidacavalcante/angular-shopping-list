@@ -5,11 +5,13 @@ import { ListItemsComponent } from './list-items/list-items.component';
 import { ShoppingViewComponent } from './shopping-view/shopping-view.component';
 import { FormsModule } from '@angular/forms';
 import { PriceComponent } from './price/price.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgbModule.forRoot()
   ],
   exports: [
     InsertItemComponent,
