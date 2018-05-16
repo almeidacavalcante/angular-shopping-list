@@ -7,15 +7,16 @@
   </div>
 </div>
 <form action="">
+
   <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
-    <label class="btn btn-primary">
-      <input type="radio" (click)="toggle($event)" name="options" id="option1" autocomplete="off"> Kg
+    <label class="btn btn-primary" [class.active]="unit == 'Kilogram'" (click)="unit = 'Kilogram'">
+      <input type="radio" name="options" id="option1" autocomplete="off"> Kg
     </label>
-    <label class="btn btn-primary">
-      <input type="radio" (click)="toggle($event)" name="options" id="option2" autocomplete="off"> Lt
+    <label class="btn btn-primary"  [class.active]="unit == 'Litre'" (click)="unit = 'Litre'" >
+      <input type="radio"name="options" id="option2" autocomplete="off"> Lt
     </label>
-    <label class="btn btn-primary">
-      <input type="radio" (click)="toggle($event)" name="options" id="option3" autocomplete="off"> Pack
+    <label class="btn btn-primary"  [class.active]="unit == 'Package'" (click)="unit = 'Package'" >
+      <input type="radio" name="options" id="option3" autocomplete="off"> Pack
     </label>
   </div>
 

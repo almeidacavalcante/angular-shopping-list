@@ -19,7 +19,7 @@ export class ListItemsComponent {
   private items : Item[];
   private closeResult: string;
 
-  @Input() valor = 1;
+  @Input() valor = 100;
 
   @ViewChild('campoInput') campoInput: ElementRef;
   @ViewChild('pricePopup') pricePopup: PriceComponent;
@@ -31,7 +31,7 @@ export class ListItemsComponent {
   }
 
   ngOnInit() {
-    this.service.listUpdater.subscribe( () => {
+    ItemService.listUpdater.subscribe( () => {
         console.log('listUpdated subscribe()');
       	
         this.items = this.service.items;
@@ -50,17 +50,7 @@ export class ListItemsComponent {
    * takeAction
    */
   public takeAction(item: Item, event: Event) {
-    if (event.srcElement.getAttribute('id') == Action.purchase){
-      console.log('takeAction()');
-      console.log(this.pricePopup);
-      this.pricePopup.open(item);
-      
-      this.service.purchase(item);
-
-      
-      let button = event.srcElement;      
-      
-    }else if (event.srcElement.getAttribute('id') == Action.delete){
+    if (event.srcElement.getAttribute('id') == Action.delete){
       this.service.delete(item);
     }
   }

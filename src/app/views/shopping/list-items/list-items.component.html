@@ -6,7 +6,7 @@
       <th scope="col">Item Name</th>
       <th scope="col">Unit</th>
       <th scope="col">Date</th>
-      <th scope="col">Action</th>
+      <th scope="col" colspan="2">Action</th>
     </tr>
   </thead>
   
@@ -14,15 +14,14 @@
     <tr *ngFor="let item of items" (click)="takeAction(item, $event)">
       <th scope="row">
         <input type="text" [value]="valor" #campoInput>
-      </th>
+      </th> 
       <td>{{item.name}}</td>
       <td>{{item.unit}}</td>
       <td>{{item.dateFormat()}}</td>
-      <td><button id="purchase" class="btn btn-success">Purchase</button></td>
-      
+
+      <td><price-popup [item]="item">{{item.name}}</price-popup></td>
       <td><button id="delete"  class="btn btn-danger"><i class="fa fa-trash-o prevent-click"></i></button></td>
     </tr>
   </tbody>
 </table>
 
-<price-popup #pricePopup></price-popup>

@@ -10,7 +10,7 @@ import { PriceComponent } from "../../views/shopping/price/price.component";
 export class ItemService {
  
   private _items: Item[];
-  public listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
+  static listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
   public purchaseEvent: EventEmitter<PriceComponent> = new EventEmitter();
 
 
@@ -20,9 +20,8 @@ export class ItemService {
 
   public insertItem(item: Item): void {
     this._items.push(item);
-    this.listUpdater.emit();
+    ItemService.listUpdater.emit();
   }
-
   
   public get items() : Item[] {
     return this._items
@@ -33,15 +32,5 @@ export class ItemService {
    */
   public delete(item: Item) {
      this._items.splice(this.items.indexOf(item), 1);
-  }
-
-  /**
-   * purchase
-   */
-  public purchase(item: Item) {
-    item.purchase();
-    this.purchaseEvent.emit();    
-    console.log('after emit()');
-    
   }
 }

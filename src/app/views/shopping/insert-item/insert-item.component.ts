@@ -18,13 +18,14 @@ import { ItemService } from '../../../services/item/item.service';
 export class InsertItemComponent {
 
   private itemName: string = '';
+  public unit: Unit = Unit.Kg;
   
   constructor(private service: ItemService){}
 
   private insertItem() {
     if (this.itemName != undefined) {
 
-      let item = new Item(this.itemName, new Date(), Unit.Kg);
+      let item = new Item(this.itemName, new Date(), this.unit);
 
       this.service.insertItem(item);
       this.itemName = '';

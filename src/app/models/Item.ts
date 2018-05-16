@@ -1,6 +1,7 @@
 export class Item {
 
     private _name: string;
+    private _price: number;
     private _date: Date;
     private _unit: Unit;
     private _state: State;
@@ -10,6 +11,7 @@ export class Item {
         this._date = date;
         this._unit = unit;
         this._state = State.Listed;
+        this._price = undefined;
     }
     
     public get name() : string {
@@ -31,13 +33,21 @@ export class Item {
     public get state() : State {
         return this._state;
     }
+
+    public get price() : number {
+        return this._price;
+    }
+    public set price(v : number) {
+        this._price = v;
+    }
     
     
     /**
      * purchase
      */
-    public purchase() {
+    public purchase(price: number) : void {
         this.state = State.Purchased;
+        this.price = price;
     }
 
     /**
