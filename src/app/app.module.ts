@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 
 import { ShoppingModule } from './views/shopping/shopping.module';
 import { ItemService } from './services/item/item.service';
+import { NgElseDirective } from "./shared/ng-else.directive";
 
 
 
@@ -13,7 +14,7 @@ import { ItemService } from './services/item/item.service';
     BrowserModule,
     ShoppingModule,
     FormsModule
-  ],
+  ], 
   declarations: [
     AppComponent
   ],

@@ -19,7 +19,7 @@
       <td>{{item.name}}</td>
       <td>{{item.unit}}</td>
       <td>{{item.dateFormat()}}</td>
-      <td><span *ngIf="item.price">R$ </span>{{item.price}}</td>
+      <td>{{item.price | currency:'BRL':'symbol':'1.2-2'}}</td>
 
       <td><price-popup  [item]="item">{{item.name}}</price-popup></td>
       <td><button *ngIf="!(item.state == 'Purchased')" id="delete"  class="btn btn-danger" [disabled]="item.state == 'Purchased'"><i class="fa fa-trash-o prevent-click"></i></button></td>

@@ -26,6 +26,13 @@ export class ItemService {
   public get items() : Item[] {
     return this._items
   }
+
+  /**
+   * sortItems
+   */
+  public sortItems() {
+    this._items.sort(() => {return -1})
+  }
   
   /**
    * delete

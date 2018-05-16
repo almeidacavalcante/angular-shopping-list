@@ -23,5 +23,10 @@
   </div>
 </ng-template>
 
-<button id="purchase" *ngIf="!(item.state == 'Purchased')" [disabled]="item.state == 'Purchased'"  class="btn btn-success" (click)="open(content)">Purchase</button>
-<button id="purchase" *ngIf="(item.state == 'Purchased')" class="btn btn-warning" (click)="open(content)">Edit</button>
+<button id="purchase" *ngIf="!(item.state == 'Purchased'), else purchased" 
+  [disabled]="item.state == 'Purchased'"  class="btn btn-success" 
+  (click)="open(content)">Purchase</button>
+
+<ng-template #purchased>
+  <button id="purchase" class="btn btn-warning" (click)="open(content)">Edit</button>
+</ng-template>

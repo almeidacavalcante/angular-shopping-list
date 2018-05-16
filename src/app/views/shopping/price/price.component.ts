@@ -30,6 +30,7 @@ export class PriceComponent{
         this.service.delete(this.item);
       }else{
         this.item.purchase(this.value);
+        this.service.sortItems();
         console.log(this.item);
       }     
     }, (reason) => {
