@@ -1,3 +1,7 @@
 .prevent-click {
     pointer-events: none;
 }
+
+.is-purchased {
+    color: gray;
+}

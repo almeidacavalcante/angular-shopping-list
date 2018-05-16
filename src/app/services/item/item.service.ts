@@ -31,6 +31,8 @@ export class ItemService {
    * delete
    */
   public delete(item: Item) {
-     this._items.splice(this.items.indexOf(item), 1);
+    console.log(this.items);
+    
+    this._items.splice(this.items.indexOf(item), 1);
   }
 }

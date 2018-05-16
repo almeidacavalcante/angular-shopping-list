@@ -8,15 +8,13 @@ import { Item } from '../../../models/Item';
 @Component({
   selector: 'price-popup',
   templateUrl: './price.component.html',
-  styleUrls: ['./price.component.css'],
-  providers: [ItemService]
+  styleUrls: ['./price.component.css']
 })
 export class PriceComponent{
 
   closeResult: string;
-  private subsctiontion: any;
 
-  public value : number = 0.00;
+  public value : number;
   @Input() item : Item;
 
   constructor(private modalService: NgbModal, private service: ItemService) {
@@ -24,17 +22,21 @@ export class PriceComponent{
   }
 
   open(content) {
-    $('value').focus();
+    
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-
-      this.item.purchase(this.value);
       
-      console.log(this.item);
-      
+      if (result == 'delete'){
+        this.service.delete(this.item);
+      }else{
+        this.item.purchase(this.value);
+        console.log(this.item);
+      }     
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+
+    $('.form-control').focus();
   }
 
   private getDismissReason(reason: any): string {

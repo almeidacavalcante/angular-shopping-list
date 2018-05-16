@@ -1,19 +1,27 @@
-<ng-template #content let-finalize="close" let-d="dismiss">
+<ng-template #content  let-delete="close" let-finalize="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="d('cross')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <label for="value">
-        <input class="form-control" name="value" type="number" [(ngModel)]="value">
+        
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">R$</span>
+          </div>
+          <input (keyup.enter)="finalize('finalize')" class="form-control" name="value" type="number" [(ngModel)]="value">
+        </div>
     </label>
     
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="finalize('Finalize Button')">Finalize</button>
+    <button type="button" class="btn btn-success" (click)="finalize('finalize')">Finalize</button>
+    <button type="button" class="btn btn-danger" (click)="delete('delete')"><i class="fa fa-trash-o prevent-click"></i></button>
   </div>
 </ng-template>
 
-<button id="purchase" class="btn btn-success" (click)="open(content)">Purchase</button>
+<button id="purchase" *ngIf="!(item.state == 'Purchased')" [disabled]="item.state == 'Purchased'"  class="btn btn-success" (click)="open(content)">Purchase</button>
+<button id="purchase" *ngIf="(item.state == 'Purchased')" class="btn btn-warning" (click)="open(content)">Edit</button>

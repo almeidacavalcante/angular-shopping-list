@@ -6,21 +6,23 @@
       <th scope="col">Item Name</th>
       <th scope="col">Unit</th>
       <th scope="col">Date</th>
+      <th scope="col">Price</th>
       <th scope="col" colspan="2">Action</th>
     </tr>
   </thead>
   
   <tbody >
-    <tr *ngFor="let item of items" (click)="takeAction(item, $event)">
+    <tr *ngFor="let item of items" [class.is-purchased]="item.state == 'Purchased'" (click)="takeAction(item, $event)">
       <th scope="row">
-        <input type="text" [value]="valor" #campoInput>
+        #
       </th> 
       <td>{{item.name}}</td>
       <td>{{item.unit}}</td>
       <td>{{item.dateFormat()}}</td>
+      <td><span *ngIf="item.price">R$ </span>{{item.price}}</td>
 
-      <td><price-popup [item]="item">{{item.name}}</price-popup></td>
-      <td><button id="delete"  class="btn btn-danger"><i class="fa fa-trash-o prevent-click"></i></button></td>
+      <td><price-popup  [item]="item">{{item.name}}</price-popup></td>
+      <td><button *ngIf="!(item.state == 'Purchased')" id="delete"  class="btn btn-danger" [disabled]="item.state == 'Purchased'"><i class="fa fa-trash-o prevent-click"></i></button></td>
     </tr>
   </tbody>
 </table>
