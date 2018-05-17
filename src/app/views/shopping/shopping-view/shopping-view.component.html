@@ -1,5 +1,11 @@
-<br><br>
-<h1>Shopping List</h1>
-<hr>
-<app-insert-item></app-insert-item>
-<app-list-items></app-list-items>
+<div class="container">
+  <h2>Shopping List</h2>
+  <hr>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Supermarket</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter the supermarket name...">
+  </div>
+  <app-insert-item></app-insert-item>
+  <app-list-items></app-list-items>
+  <button class="btn btn-primary" type="button" (click)="save()" [disabled]="!isFinished">Finalize Shopping List</button>
+</div>

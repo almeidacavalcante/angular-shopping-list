@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Item } from "../../models/Item";
+import { Item, State } from "../../models/Item";
 import { ListItemsComponent } from "../../views/shopping/list-items/list-items.component";
 import { Subject, Observable } from "rxjs";
 import { PriceComponent } from "../../views/shopping/price/price.component";
@@ -31,7 +31,11 @@ export class ItemService {
    * sortItems
    */
   public sortItems() {
-    this._items.sort(() => {return -1})
+    this._items.sort((item) => {
+      if(item.state == State.Purchased){
+        return 1;
+      }
+    })
   }
   
   /**

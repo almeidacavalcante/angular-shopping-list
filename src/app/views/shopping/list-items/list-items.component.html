@@ -1,4 +1,3 @@
-
 <table class="table table-striped table-dark">
   <thead>
     <tr>
@@ -10,20 +9,25 @@
       <th scope="col" colspan="2">Action</th>
     </tr>
   </thead>
-  
-  <tbody >
+
+  <tbody>
     <tr *ngFor="let item of items" [class.is-purchased]="item.state == 'Purchased'" (click)="takeAction(item, $event)">
       <th scope="row">
         #
-      </th> 
+      </th>
       <td>{{item.name}}</td>
       <td>{{item.unit}}</td>
       <td>{{item.dateFormat()}}</td>
       <td>{{item.price | currency:'BRL':'symbol':'1.2-2'}}</td>
 
-      <td><price-popup  [item]="item">{{item.name}}</price-popup></td>
-      <td><button *ngIf="!(item.state == 'Purchased')" id="delete"  class="btn btn-danger" [disabled]="item.state == 'Purchased'"><i class="fa fa-trash-o prevent-click"></i></button></td>
+      <td>
+        <price-popup [item]="item">{{item.name}}</price-popup>
+      </td>
+      <td>
+        <button *ngIf="!(item.state == 'Purchased')" id="delete" class="btn btn-danger" [disabled]="item.state == 'Purchased'">
+          <i class="fa fa-trash-o prevent-click"></i>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
-

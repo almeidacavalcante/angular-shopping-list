@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingList } from '../../../models/ShoppingList';
 
 @Component({
   selector: 'app-shopping-view',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-view.component.css']
 })
 export class ShoppingViewComponent implements OnInit {
+
+  public isFinished: boolean = false;
+  private shoppingList: ShoppingList;
 
   constructor() { }
 
