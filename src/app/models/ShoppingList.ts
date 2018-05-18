@@ -10,6 +10,7 @@ export class ShoppingList {
 
     constructor(){
         this._items = new Array<Item>();
+        this._date = new Date();
     }
 
     /**

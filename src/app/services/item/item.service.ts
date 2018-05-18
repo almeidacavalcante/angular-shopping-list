@@ -13,9 +13,9 @@ export class ItemService {
 
   private _shoppingList: ShoppingList;
   obsItems: Observable<any[]>;
+
   static listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
   public purchaseEvent: EventEmitter<PriceComponent> = new EventEmitter();
-
 
   constructor(private dao: ItemDaoService) {
     this._shoppingList = new ShoppingList()
@@ -24,6 +24,7 @@ export class ItemService {
 
   public insertItem(item: Item): void {
     this._shoppingList.add(item);
+    this.dao.addItem(item);
     ItemService.listUpdater.emit();
   }
 
@@ -47,15 +48,15 @@ export class ItemService {
    * TODO: Change this ineficient routine
    */
   public onCheck() {
-    let isFinished = true;
-    this._shoppingList.items.forEach( (item) => {
-      if (item.state == State.Listed){
-        isFinished = false;
-      }
-    })
-    if (isFinished){
-      this._shoppingList.isFinished = true;
-    }
+    // let isFinished = true;
+    // this._shoppingList.items.forEach( (item) => {
+    //   if (item.state == State.Listed){
+    //     isFinished = false;
+    //   }
+    // })
+    // if (isFinished){
+    //   this._shoppingList.isFinished = true;
+    // }
   }
   
   /**
@@ -70,14 +71,15 @@ export class ItemService {
   /**
    * addShoppingList
    */
-  public addShoppingList(shoppingList: ShoppingList) {
-    this._shoppingList = shoppingList;
+  public addShoppingList() {
+    console.log(this._shoppingList);
+    this.persistShoppingList();
   }
 
   /**
    * persistShoppingList
    */
   public persistShoppingList() {
-    this.dao.save(this._shoppingList)
+    this.dao.save(this._shoppingList);
   }
 }

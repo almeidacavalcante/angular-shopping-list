@@ -13,19 +13,19 @@ import { ShoppingModule } from './views/shopping/shopping.module';
 import { ItemService } from './services/item/item.service';
 import { NgElseDirective } from "./shared/ng-else.directive";
 import { LoginComponent } from './views/login/login.component';
-import { routing } from './app.routing';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { PreviousListsComponent } from './views/previous-lists/previous-lists.component';
 import { ListDetailComponent } from './views/previous-lists/list-detail/list-detail.component';
 import { ItemDaoService } from './services/item-dao/item-dao.service';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AppRoutingModule } from './routing/app.routing.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     ShoppingModule,
     FormsModule,
-    routing,
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'shopping-list-app2018')
   ], 
   declarations: [

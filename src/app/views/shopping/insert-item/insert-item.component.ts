@@ -23,7 +23,7 @@ export class InsertItemComponent {
   constructor(private service: ItemService){}
 
   private insertItem() {
-    if (this.itemName != undefined) {
+    if (this.itemName != '') {
 
       let item = new Item(this.itemName, new Date(), this.unit);
 

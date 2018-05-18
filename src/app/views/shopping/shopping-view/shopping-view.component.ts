@@ -10,10 +10,11 @@ import { ItemService } from '../../../services/item/item.service';
 })
 export class ShoppingViewComponent implements OnInit {
 
-  public isFinished: boolean = false;
-  private shoppingList: ShoppingList;
+  public isFinished: boolean = true;
 
-  constructor(private service: ItemService) { }
+  constructor(private service: ItemService) {
+
+  }
 
   ngOnInit() {
     
@@ -24,7 +25,7 @@ export class ShoppingViewComponent implements OnInit {
    */
   public save() {
     if (this.isFinished) {
-      this.service.addShoppingList(this.shoppingList);
+      this.service.addShoppingList();
     }else{
       throw new Error('You cannot save a shoppingList while is there any unpurchased items');
     }
