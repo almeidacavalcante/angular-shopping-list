@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import * as $ from "../../../../../node_modules/jquery";
 
 import { ListItemsComponent } from '../list-items/list-items.component';
-import { ShoppingController } from '../../../controllers/shopping-controller';
 import { Item, Unit } from '../../../models/Item';
 import { ItemService } from '../../../services/item/item.service';
 

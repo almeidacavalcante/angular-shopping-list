@@ -6,7 +6,7 @@ import { ShoppingViewComponent } from './shopping-view/shopping-view.component';
 import { FormsModule } from '@angular/forms';
 import { PriceComponent } from './price/price.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { LikeComponent } from '../../shared/like/like.component';
 
 @NgModule({
   imports: [
@@ -23,6 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InsertItemComponent,
     ListItemsComponent,
     ShoppingViewComponent,
-    PriceComponent]
+    PriceComponent,
+    LikeComponent
+  ]
 })
 export class ShoppingModule {}

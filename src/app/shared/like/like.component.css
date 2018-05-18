@@ -1,0 +1,12 @@
+.like {
+    color: #ccc;
+    font-size: 20px;
+}
+
+.like:hover{
+    cursor: pointer;
+}
+
+.isActive {
+    color: deeppink;
+}

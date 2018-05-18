@@ -9,6 +9,8 @@
       <label for="item-name">
         Item name: <b><ng-content></ng-content></b>
       </label>
+      <!-- TODO: Hardcoded values!!!! -->
+      <like [likesCount]="12" [isActive]="false" (change)="onLikeChanged($event)"></like>
       <br>
     
     <label for="value">

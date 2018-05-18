@@ -11,7 +11,6 @@ import { AngularFireModule } from "angularfire2";
 
 import { ShoppingModule } from './views/shopping/shopping.module';
 import { ItemService } from './services/item/item.service';
-import { NgElseDirective } from "./shared/ng-else.directive";
 import { LoginComponent } from './views/login/login.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { PreviousListsComponent } from './views/previous-lists/previous-lists.component';
@@ -43,4 +42,5 @@ import { AppRoutingModule } from './routing/app.routing.module';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

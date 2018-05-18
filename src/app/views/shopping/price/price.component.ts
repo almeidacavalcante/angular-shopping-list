@@ -4,6 +4,8 @@ import * as $ from "jquery";
 import { NgbModule, ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DecimalPipe } from '@angular/common';
 import { Item } from '../../../models/Item';
+import { Subscription } from 'rxjs';
+import { LikeComponent } from '../../../shared/like/like.component';
 
 
 @Component({
@@ -21,6 +23,15 @@ export class PriceComponent{
   constructor(private modalService: NgbModal, private service: ItemService) {
 
   }
+
+  /**
+   * onLikeChanged
+   */
+  public onLikeChanged(isActive) {
+    console.log("onLikeChanged: ", isActive);
+    
+  }
+
 
   open(content) {
     

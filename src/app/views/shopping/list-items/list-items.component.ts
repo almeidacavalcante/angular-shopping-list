@@ -6,7 +6,6 @@ import * as $ from 'jquery';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PriceComponent } from '../price/price.component';
 import { Subject, Observable, Subscription } from 'rxjs';
-import { NgElseDirective } from "../../../shared/ng-else.directive";
 
 @Component({
   selector: 'app-list-items',
