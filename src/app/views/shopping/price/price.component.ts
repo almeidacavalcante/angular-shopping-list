@@ -5,6 +5,7 @@ import { NgbModule, ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-boots
 import { DecimalPipe } from '@angular/common';
 import { Item } from '../../../models/Item';
 
+
 @Component({
   selector: 'price-popup',
   templateUrl: './price.component.html',
@@ -31,6 +32,7 @@ export class PriceComponent{
       }else{
         this.item.purchase(this.value);
         this.service.sortItems();
+        this.service.onCheck();
         console.log(this.item);
       }     
     }, (reason) => {

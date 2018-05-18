@@ -1,13 +1,17 @@
 <ng-template #content  let-delete="close" let-finalize="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
+    <h4 class="modal-title">How much?</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('cross')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
+      <label for="item-name">
+        Item name: <b><ng-content></ng-content></b>
+      </label>
+      <br>
+    
     <label for="value">
-        
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text">R$</span>

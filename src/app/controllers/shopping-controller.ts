@@ -7,7 +7,7 @@ export class ShoppingController {
 
 
     constructor(){
-        this._service = new ItemService();
+
     }
 
     /**

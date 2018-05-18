@@ -5,18 +5,31 @@ export class ShoppingList {
     
     private _market : Market;
     private _date : Date;
-    private _items : Item;
+    private _items : Array<Item>;
+    private _isFinished = false;
 
-    constructor(market: Market){
-        this._market = market;
+    constructor(){
+        this._items = new Array<Item>();
     }
 
-    public get items() : Item {
+    /**
+     * add
+     */
+    public add(item: Item) {
+        this._items.push(item);
+    }
+
+    /**
+     * isFinished
+     */
+    public set isFinished(flag: boolean) {
+        this.isFinished = flag;
+    }
+
+    public get items() : Array<Item> {
         return this._items;
     }
-    public set items(v : Item) {
-        this._items = v;
-    }
+
     public get date() : Date {
         return this._date;
     }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ItemService } from '../../services/item/item.service';
 
 @Component({
   selector: 'previous-lists',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreviousListsComponent implements OnInit {
 
-  constructor() { }
+  items;
+
+  constructor(private service: ItemService) { }
 
   ngOnInit() {
+    this.items = this.service.obsItems;
+    console.log(this.items);
+    
   }
 
 }

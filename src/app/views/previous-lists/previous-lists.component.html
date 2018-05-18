@@ -14,3 +14,7 @@
       <span class="badge badge-primary badge-pill">9</span>
     </li>
   </ul>
+
+  <div *ngFor="let item of items | async">
+    {{item | json}}
+  </div>
