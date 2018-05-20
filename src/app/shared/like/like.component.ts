@@ -19,7 +19,8 @@ export class LikeComponent{
    * onClick
    */
   public onClick() {
-    this.isActive = !this.isActive;    
+    this.isActive = !this.isActive; 
+    this.likesCount += (!this.isActive) ? -1 : 1;  
     this.change.emit(this.isActive);
   }
 

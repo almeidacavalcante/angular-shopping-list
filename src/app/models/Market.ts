@@ -1,5 +1,5 @@
 export class Market {
-
+    
     private _name: string;
 
     constructor(name: string) {

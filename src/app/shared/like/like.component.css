@@ -1,6 +1,6 @@
 .like {
     color: #ccc;
-    font-size: 20px;
+    font-size: 35px;
 }
 
 .like:hover{
@@ -9,4 +9,11 @@
 
 .isActive {
     color: deeppink;
+}
+
+.container {
+    padding: 10px;
+    text-align: center;
+    height: fit-content;
+    width: fit-content;
 }

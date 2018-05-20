@@ -6,6 +6,8 @@ import { DecimalPipe } from '@angular/common';
 import { Item } from '../../../models/Item';
 import { Subscription } from 'rxjs';
 import { LikeComponent } from '../../../shared/like/like.component';
+import { Price } from '../../../models/Price';
+
 
 
 @Component({
@@ -17,10 +19,13 @@ export class PriceComponent{
 
   closeResult: string;
 
+  //TODO: DUMMY NUMBER
+  public likes = 9;
+
   public value : number;
   @Input() item : Item;
 
-  constructor(private modalService: NgbModal, private service: ItemService) {
+  constructor(private modalService: NgbModal, public service: ItemService) {
 
   }
 
@@ -28,8 +33,7 @@ export class PriceComponent{
    * onLikeChanged
    */
   public onLikeChanged(isActive) {
-    console.log("onLikeChanged: ", isActive);
-    
+    console.log("onLikeChanged: ", isActive);    
   }
 
 
@@ -41,16 +45,19 @@ export class PriceComponent{
       if (result == 'delete'){
         this.service.delete(this.item);
       }else{
-        this.item.purchase(this.value);
-        this.service.sortItems();
-        this.service.onCheck();
-        console.log(this.item);
+        this.purchaseRoutine();
       }     
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-
     $('.form-control').focus();
+  }
+
+  private purchaseRoutine(): void {
+    this.item.purchase(new Price(this.value));
+    this.service.sortItems();
+    this.service.onCheck();
+    console.log(this.item);
   }
 
   private getDismissReason(reason: any): string {

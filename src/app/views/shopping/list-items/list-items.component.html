@@ -4,27 +4,23 @@
       <th scope="col">Index</th>
       <th scope="col">Item Name</th>
       <th scope="col">Unit</th>
-      <th scope="col">Date</th>
       <th scope="col">Price</th>
       <th scope="col" colspan="2">Action</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let item of items" [class.is-purchased]="item.state == 'Purchased'" (click)="takeAction(item, $event)">
-      <th scope="row">
-        #
-      </th>
+    <tr *ngFor="let item of items" [class.is-purchased]="(item.isPurchased)" (click)="takeAction(item, $event)">
+      <th scope="row">{{item.id}}</th>
       <td>{{item.name}}</td>
       <td>{{item.unit}}</td>
-      <td>{{item.dateFormat()}}</td>
-      <td>{{item.price | currency:'BRL':'symbol':'1.2-2'}}</td>
+      <td>{{item.price?.value | currency:'BRL':'symbol':'1.2-2'}}</td>
 
       <td>
         <price-popup [item]="item">{{item.name}}</price-popup>
       </td>
       <td>
-        <button *ngIf="!(item.state == 'Purchased')" id="delete" class="btn btn-danger" [disabled]="item.state == 'Purchased'">
+        <button *ngIf="!(item.isPurchased) as isPurchased" id="delete" class="btn btn-danger" [disabled]="!isPurchased">
           <i class="fa fa-trash-o prevent-click"></i>
         </button>
       </td>

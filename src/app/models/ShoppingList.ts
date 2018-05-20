@@ -4,13 +4,13 @@ import { Market } from "./Market";
 export class ShoppingList {
     
     private _market : Market;
-    private _date : Date;
+    private _date : number;
     private _items : Array<Item>;
     private _isFinished = false;
 
     constructor(){
         this._items = new Array<Item>();
-        this._date = new Date();
+        this._date = new Date().getTime();
     }
 
     /**
@@ -31,10 +31,10 @@ export class ShoppingList {
         return this._items;
     }
 
-    public get date() : Date {
+    public get date() : number {
         return this._date;
     }
-    public set date(v : Date) {
+    public set date(v : number) {
         this._date = v;
     }
     

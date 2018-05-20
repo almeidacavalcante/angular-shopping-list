@@ -9,8 +9,9 @@
       <label for="item-name">
         Item name: <b><ng-content></ng-content></b>
       </label>
+
       <!-- TODO: Hardcoded values!!!! -->
-      <like [likesCount]="12" [isActive]="false" (change)="onLikeChanged($event)"></like>
+      <like class="like" [likesCount]="likes" [isActive]="false" (change)="onLikeChanged($event)"></like>
       <br>
     
     <label for="value">
@@ -29,8 +30,8 @@
   </div>
 </ng-template>
 
-<button id="purchase" *ngIf="!(item.state == 'Purchased'), else purchased" 
-  [disabled]="item.state == 'Purchased'"  class="btn btn-success" 
+<button id="purchase" *ngIf="!(item.isPurchased), else purchased" 
+  [disabled]="(item.isPurchased)"  class="btn btn-success" 
   (click)="open(content)">Purchase</button>
 
 <ng-template #purchased>

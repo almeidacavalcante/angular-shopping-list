@@ -16,8 +16,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { PreviousListsComponent } from './views/previous-lists/previous-lists.component';
 import { ListDetailComponent } from './views/previous-lists/list-detail/list-detail.component';
 import { ItemDaoService } from './services/item-dao/item-dao.service';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AppRoutingModule } from './routing/app.routing.module';
+import { ZippyComponent } from './shared/zippy/zippy.component';
 
 @NgModule({
   imports: [
@@ -32,12 +33,14 @@ import { AppRoutingModule } from './routing/app.routing.module';
     LoginComponent,
     NavbarComponent,
     PreviousListsComponent,
-    ListDetailComponent
+    ListDetailComponent,
+    ZippyComponent
   ],
   providers: [
     ItemService,
     ItemDaoService,
-    AngularFirestore,
+    AngularFireDatabaseModule,
+    AngularFireDatabase
   ],
   bootstrap: [AppComponent]
 })

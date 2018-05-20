@@ -21,7 +21,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   @ViewChild('campoInput') campoInput: ElementRef;
 
   constructor(private service: ItemService, private modalService: NgbModal) { 
-
+    this.items = this.service.items;
   }
 
   ngOnInit() {

@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Item, State } from "../../models/Item";
+import { Item } from "../../models/Item";
 import { ListItemsComponent } from "../../views/shopping/list-items/list-items.component";
 import { Subject, Observable } from "rxjs";
 import { PriceComponent } from "../../views/shopping/price/price.component";
@@ -9,7 +9,7 @@ import { ItemDaoService } from "../item-dao/item-dao.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ItemService {
+export class ItemService { 
 
   private _shoppingList: ShoppingList;
   obsItems: Observable<any[]>;
@@ -19,12 +19,11 @@ export class ItemService {
 
   constructor(private dao: ItemDaoService) {
     this._shoppingList = new ShoppingList()
-    this.dao.log();
   }
 
   public insertItem(item: Item): void {
     this._shoppingList.add(item);
-    this.dao.addItem(item);
+    // this.dao.addItem(item);
     ItemService.listUpdater.emit();
   }
 
@@ -33,7 +32,7 @@ export class ItemService {
    */
   public sortItems() {
     this._shoppingList.items.sort((item) => {
-      if(item.state == State.Purchased){
+      if(item.isPurchased){
         return 1;
       }
     })
@@ -71,15 +70,8 @@ export class ItemService {
   /**
    * addShoppingList
    */
-  public addShoppingList() {
+  public saveShoppingList() {
     console.log(this._shoppingList);
-    this.persistShoppingList();
-  }
-
-  /**
-   * persistShoppingList
-   */
-  public persistShoppingList() {
     this.dao.save(this._shoppingList);
   }
 }

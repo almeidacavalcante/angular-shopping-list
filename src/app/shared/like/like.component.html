@@ -1,2 +1,6 @@
-<i class="fa fa-heart like" aria-hidden="true" (click)="onClick()" [class.isActive]="isActive"></i>
-<ng-content></ng-content>
+<div class="container">
+  <i class="fa fa-heart like" aria-hidden="true" (click)="onClick()" [class.isActive]="isActive"></i>
+  <br>
+  {{likesCount}}
+</div>
+

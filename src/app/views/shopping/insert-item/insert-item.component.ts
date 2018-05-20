@@ -24,7 +24,7 @@ export class InsertItemComponent {
   private insertItem() {
     if (this.itemName != '') {
 
-      let item = new Item(this.itemName, new Date(), this.unit);
+      let item = new Item(this.itemName, this.unit);
 
       this.service.insertItem(item);
       this.itemName = '';
