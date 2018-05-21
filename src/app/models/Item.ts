@@ -46,6 +46,10 @@ export class Item {
         return this._prices;
     }
 
+    public set prices(v: Price[]){
+        this._prices = v;
+    }
+
     /**
      * actualPrice
      */

@@ -13,7 +13,7 @@ export class PreviousListsComponent implements OnInit {
   constructor(private service: ItemService) { }
 
   ngOnInit() {
-    this.items = this.service.obsItems;
+    this.items = this.service.itemsObservable$;
     console.log(this.items);
     
   }

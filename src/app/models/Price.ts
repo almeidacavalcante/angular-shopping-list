@@ -4,9 +4,14 @@ export class Price {
     private _date : number;
     private _value : number;
 
-    constructor(value: number){
-        this._date = new Date().getTime();      
-        this._value = value;
+    constructor(value: number, date?: number){
+        if (date){
+            this._date = date;
+            this._value = value;
+        }else{
+            this._date = new Date().getTime();      
+            this._value = value;
+        }
     }
 
     public get value() : number {

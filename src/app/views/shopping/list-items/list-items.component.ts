@@ -20,27 +20,23 @@ export class ListItemsComponent implements OnInit, OnDestroy {
 
   @ViewChild('campoInput') campoInput: ElementRef;
 
-  constructor(private service: ItemService, private modalService: NgbModal) { 
-    this.items = this.service.items;
-  }
+  constructor(private service: ItemService, private modalService: NgbModal) {}
 
   ngOnInit() {
     this.subscription = ItemService.listUpdater.subscribe( () => {
         console.log('listUpdated: EVENT RECEIVED!');
-        this.items = this.service.items;
-      }
-    );
+        this.items =  this.service.items;
+
+      });
   }
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
-  }
+
 
   /**
    * update
    */
   public update(items: Item[]) {
-    this.items = this.service.items;
+    console.log('IMPLEMENT ESTE METODO!');
   }
 
   /**
@@ -50,6 +46,10 @@ export class ListItemsComponent implements OnInit, OnDestroy {
     if (event.srcElement.getAttribute('id') == Action.delete){
       this.service.delete(item);
     }
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }
 

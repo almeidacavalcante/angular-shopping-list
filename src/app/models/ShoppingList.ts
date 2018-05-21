@@ -31,6 +31,10 @@ export class ShoppingList {
         return this._items;
     }
 
+    public set items(v: Array<Item>) {
+        this._items = v;
+    }
+
     public get date() : number {
         return this._date;
     }

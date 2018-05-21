@@ -1,13 +1,13 @@
 
 <label for="exampleInputEmail1">Item</label>
 <div class="input-group mb-3">
-  <input #cItem type="text" (keyup.enter)="insertItem(cItem.value)"  [(ngModel)]="itemName" (input)="itemName = $event.target.value" class="form-control" placeholder="Enter the item..." aria-label="Enter the item..." aria-describedby="basic-addon2">
+  <input #cItem id="typeahead-basic" type="text" (keyup.enter)="insertItem(cItem.value)" [ngbTypeahead]="search" [(ngModel)]="itemName" (input)="itemName = $event.target.value" class="form-control" placeholder="Enter the item..." aria-label="Enter the item..." aria-describedby="basic-addon2">
   <div class="input-group-append">
     <button (click)="insertItem()" class="btn btn-primary" type="button">Insert</button>
   </div>
 </div>
-<form action="">
 
+<form action="">
   <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
     <label class="btn btn-primary" [class.active]="unit == 'Kilogram'" (click)="unit = 'Kilogram'">
       <input type="radio" name="options" id="option1" autocomplete="off"> Kg

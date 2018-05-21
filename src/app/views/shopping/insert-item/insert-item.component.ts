@@ -6,6 +6,10 @@ import { ListItemsComponent } from '../list-items/list-items.component';
 import { Item, Unit } from '../../../models/Item';
 import { ItemService } from '../../../services/item/item.service';
 
+import {Observable, Subscription} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Price } from '../../../models/Price';
+
 
 
 @Component({
@@ -15,23 +19,81 @@ import { ItemService } from '../../../services/item/item.service';
 })
 
 export class InsertItemComponent {
-
-  private itemName: string = '';
   public unit: Unit = Unit.Kg;
+
+  public itemName: string;
+  public itemNames = [];
+
+  private config = {
+    characters: 2,
+    numberOfChoices: 10,
+    debounceTime: 50,
+  }
+
+  private _subscription: Subscription;
   
-  constructor(private service: ItemService){}
+  constructor(private service: ItemService){
+    this.setupSubscription();
+  }
+
+  private setupSubscription() {
+    this._subscription = this.service.itemsObservable$.subscribe(snapshot => {
+      const allKeys = snapshot.map(item => item.$key);
+      console.log('ALLKEYS: ',allKeys);
+      
+
+
+      //WARNING: This block is re-runned when there`s a new change in the observed set.
+      console.log('SUBSCRIPTION BLOCK!');
+      
+      this.service.storedItems = new Array<Item>();
+      this.itemNames = [];
+
+      snapshot.forEach(JsonItem => {
+        console.log(JsonItem.$key);
+        
+        let convertedItem = this.setupItem(JsonItem);
+        this.service.storedItems.push(convertedItem);
+        this.itemNames.push(convertedItem.name);
+      });
+    });
+  }
+
+  public setupItem(item: {}) {
+    let tempItem = new Item(item['_name'], item['_unit']);
+    tempItem.isPurchased = true;
+    tempItem.prices = this.extractPrices(item['_prices']);
+    return tempItem;
+  }
+
+  //TODO: permitir inserir uma data completa por fora.
+  extractPrices(prices: object[]): Price[]{
+    let tPrices = new Array<Price>();
+    prices.forEach((price) => {
+      tPrices.push(new Price(price['_value'], price['_date']))
+    })
+    return tPrices;
+  }
 
   private insertItem() {
     if (this.itemName != '') {
-
       let item = new Item(this.itemName, this.unit);
+      
+      //TODO: Testar se o item ja existe, caso positivo atualizar apenas o array de precos (add +1)
+      if(this.itemNames.indexOf(this.itemName) > -1) {
+        console.log(this.itemName, ' ALREADY EXISTS!');
+        this.service.updateItem(item);
 
-      this.service.insertItem(item);
+      }else{
+        this.service.insertItem(item);
+        setInterval(()=>console.log(this.itemNames), 3000);      
+      }
       this.itemName = '';
+      
     }
   }
 
-  selected = true;
+  // selected = true;
 
   /**
    * toggle
@@ -41,9 +103,17 @@ export class InsertItemComponent {
     (<Element>event.target).setAttribute('checked', '');
     console.log((<Element>event.target).parentElement.parentElement);
     $(event.target).button('toggle')
-    
-    
+  }
 
-    
+  search = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(this.config.debounceTime),
+    distinctUntilChanged(),
+    map(term => term.length < this.config.characters ? []
+      : this.itemNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0,this.config.numberOfChoices))
+  );
+
+  ngOnDestroy(){
+    this._subscription.unsubscribe();
   }
 }
