@@ -38,8 +38,7 @@ export class InsertItemComponent {
 
   private setupSubscription() {
     this._subscription = this.service.itemsObservable$.subscribe(snapshot => {
-      const allKeys = snapshot.map(item => item.$key);
-      console.log('ALLKEYS: ',allKeys);
+      
       
 
 
@@ -50,8 +49,6 @@ export class InsertItemComponent {
       this.itemNames = [];
 
       snapshot.forEach(JsonItem => {
-        console.log(JsonItem.$key);
-        
         let convertedItem = this.setupItem(JsonItem);
         this.service.storedItems.push(convertedItem);
         this.itemNames.push(convertedItem.name);
@@ -82,6 +79,7 @@ export class InsertItemComponent {
       //TODO: Testar se o item ja existe, caso positivo atualizar apenas o array de precos (add +1)
       if(this.itemNames.indexOf(this.itemName) > -1) {
         console.log(this.itemName, ' ALREADY EXISTS!');
+
         this.service.updateItem(item);
 
       }else{

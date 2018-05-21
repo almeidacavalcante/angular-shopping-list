@@ -32,6 +32,11 @@ export class ItemService {
     ItemService.listUpdater.emit();
   }
 
+  public updateItem(item: Item) {
+    // this._shoppingList.add(item); 
+    this.dao.updateItem(item);
+  }
+
   
   public get itemsFromServer() : Observable<Item[]> {
     return this.itemsObservable$;

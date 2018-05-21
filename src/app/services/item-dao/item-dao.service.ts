@@ -82,7 +82,8 @@ export class ItemDaoService implements OnInit {
 
   public saveItem(item: Item) {
     if (item.id == undefined) {
-      this.items$.push(item)
+      this.items$.push(item);
+      
     }else{
       let ref = this.db.object('/items/' + item.id);
       ref.update(item)
@@ -102,6 +103,6 @@ export class ItemDaoService implements OnInit {
    * updateItem
    * item: Item   */
   public updateItem(item: Item) {
-    
+    this.items$.update('/items/', item);
   }
 }
