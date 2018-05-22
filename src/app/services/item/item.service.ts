@@ -26,14 +26,20 @@ export class ItemService {
     this.itemsObservable$ = dao.itemsObservable$;
   }
 
+  /**
+   * clearShoppingList
+   */
+  public clearShoppingList() {
+    this._shoppingList = new ShoppingList();
+    ItemService.listUpdater.emit();
+  }
+
   public insertItem(item: Item): void {
     this._shoppingList.add(item);
-    // this.dao.addItem(item);
     ItemService.listUpdater.emit();
   }
 
   public updateItem(item: Item) {
-    // this._shoppingList.add(item); 
     this.dao.updateItem(item);
   }
 

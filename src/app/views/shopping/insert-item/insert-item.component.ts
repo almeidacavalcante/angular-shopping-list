@@ -37,28 +37,44 @@ export class InsertItemComponent {
   }
 
   private setupSubscription() {
-    this._subscription = this.service.itemsObservable$.subscribe(snapshot => {
-      
-      
-
-
-      //WARNING: This block is re-runned when there`s a new change in the observed set.
-      console.log('SUBSCRIPTION BLOCK!');
-      
+    this._subscription = this.service.itemsObservable$.pipe(
+      map(actions => 
+        actions.map(a => ({ key: a.key, ...a.payload.val() }))
+      )
+    ).subscribe(items => {
+      console.log(items);
       this.service.storedItems = new Array<Item>();
       this.itemNames = [];
-
-      snapshot.forEach(JsonItem => {
+      items.forEach( JsonItem => {
         let convertedItem = this.setupItem(JsonItem);
         this.service.storedItems.push(convertedItem);
         this.itemNames.push(convertedItem.name);
-      });
+      })
+      console.log('Saved Objects: ', this.service.storedItems);
+      return items.map(item => item.key);
     });
   }
+
+  // private setupSubscription() {
+  //   this._subscription = this.service.itemsObservable$.subscribe(snapshot => {
+  //     //WARNING: This block is re-runned when there`s a new change in the observed set.
+  //     console.log('SUBSCRIPTION BLOCK!');
+      
+  //     this.service.storedItems = new Array<Item>();
+  //     this.itemNames = [];
+  //     //TODO:
+  //     snapshot.forEach(JsonItem => {
+  //       let convertedItem = this.setupItem(JsonItem);
+  //       this.service.storedItems.push(convertedItem);
+  //       this.itemNames.push(convertedItem.name);
+  //     });
+  //   });
+  // }
 
   public setupItem(item: {}) {
     let tempItem = new Item(item['_name'], item['_unit']);
     tempItem.isPurchased = true;
+    tempItem.id = item['key'];
     tempItem.prices = this.extractPrices(item['_prices']);
     return tempItem;
   }
@@ -75,23 +91,24 @@ export class InsertItemComponent {
   private insertItem() {
     if (this.itemName != '') {
       let item = new Item(this.itemName, this.unit);
-      
-      //TODO: Testar se o item ja existe, caso positivo atualizar apenas o array de precos (add +1)
-      if(this.itemNames.indexOf(this.itemName) > -1) {
-        console.log(this.itemName, ' ALREADY EXISTS!');
 
-        this.service.updateItem(item);
+      let selectedItemIndex = this.itemNames.indexOf(this.itemName)
 
+      if(selectedItemIndex > -1) {
+        this.service.insertItem(this.settingSelectedItem());
       }else{
         this.service.insertItem(item);
-        setInterval(()=>console.log(this.itemNames), 3000);      
       }
       this.itemName = '';
-      
     }
   }
 
-  // selected = true;
+  private settingSelectedItem() {
+    let idx = this.itemNames.indexOf(this.itemName);
+    let selectedItem = this.service.storedItems[idx];
+    selectedItem.isPurchased = false;
+    return selectedItem;
+  }
 
   /**
    * toggle

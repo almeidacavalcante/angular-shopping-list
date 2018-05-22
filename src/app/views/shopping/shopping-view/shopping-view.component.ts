@@ -26,6 +26,7 @@ export class ShoppingViewComponent implements OnInit {
   public save() {
     if (this.isFinished) {
       this.service.saveShoppingList();
+      this.service.clearShoppingList();
     }else{
       throw new Error('You cannot save a shoppingList while is there any unpurchased items');
     }

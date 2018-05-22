@@ -16,7 +16,7 @@ export class ItemDaoService implements OnInit {
 
   items = new Array<Item>();
 
-  itemsObservable$ : Observable<Item[]>;
+  itemsObservable$ : Observable<any[]>;
 
   _itemsPromise: Promise<Item[]>;
 
@@ -34,7 +34,7 @@ export class ItemDaoService implements OnInit {
   public getItemsFromServer(){
     this.items$ = this.db.list('/items');
     console.log('this.items$', this.items$);
-    this.itemsObservable$ = this.items$.valueChanges()
+    this.itemsObservable$ = this.items$.snapshotChanges();
     this.items$.snapshotChanges();
   }
 
@@ -103,6 +103,8 @@ export class ItemDaoService implements OnInit {
    * updateItem
    * item: Item   */
   public updateItem(item: Item) {
-    this.items$.update('/items/', item);
+    console.log(item);
+    
+    // this.items$.update('/items/', item);
   }
 }
