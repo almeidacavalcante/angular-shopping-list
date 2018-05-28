@@ -30,8 +30,6 @@ export class ListItemsComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
   /**
    * update
    */

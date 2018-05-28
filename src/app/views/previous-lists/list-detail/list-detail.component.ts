@@ -17,6 +17,8 @@ export class ListDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe( (params: any) => {
       this.id = params['id'];
+      console.log(params);
+      
     })
   }
 

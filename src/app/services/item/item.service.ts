@@ -4,7 +4,7 @@ import { ListItemsComponent } from "../../views/shopping/list-items/list-items.c
 import { Subject, Observable, Subscription } from "rxjs";
 import { PriceComponent } from "../../views/shopping/price/price.component";
 import { ShoppingList } from "../../models/ShoppingList";
-import { ItemDaoService } from "../item-dao/item-dao.service";
+import { ItemDaoService, ItemInterface } from "../item-dao/item-dao.service";
 import { AngularFireList } from "angularfire2/database";
 
 @Injectable({
@@ -12,18 +12,22 @@ import { AngularFireList } from "angularfire2/database";
 })
 export class ItemService { 
 
-  private _shoppingList: ShoppingList;
+  private _shoppingList = new ShoppingList();
   private _storedItems : Array<Item>;
-  public itemsObservable$: Observable<any[]>;
 
   subscription: Subscription;
+
+  private itemsPromise: Promise<Item[]>
 
   static listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
   public purchaseEvent: EventEmitter<PriceComponent> = new EventEmitter();
 
   constructor(private dao: ItemDaoService) {
-    this._shoppingList = new ShoppingList();
-    this.itemsObservable$ = dao.itemsObservable$;
+    this.itemsPromise = this.dao.getAll();    
+    this.itemsPromise.then(item => {
+      console.log('ITEM: ',item);
+      
+    })
   }
 
   /**
@@ -38,16 +42,7 @@ export class ItemService {
     this._shoppingList.add(item);
     ItemService.listUpdater.emit();
   }
-
-  public updateItem(item: Item) {
-    this.dao.updateItem(item);
-  }
-
-  
-  public get itemsFromServer() : Observable<Item[]> {
-    return this.itemsObservable$;
-  }
-  
+ 
 
   /**
    * sortItems
@@ -98,14 +93,6 @@ export class ItemService {
     let list = this._shoppingList;
     list.items.splice(list.items.indexOf(item), 1);
     this._shoppingList = list;
-  }
-
-  /**
-   * addShoppingList
-   */
-  public saveShoppingList() {
-    console.log(this._shoppingList);
-    this.dao.save(this._shoppingList);
   }
 
   ngOnDestroy(){

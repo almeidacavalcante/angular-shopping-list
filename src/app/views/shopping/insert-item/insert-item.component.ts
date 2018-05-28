@@ -6,8 +6,8 @@ import { ListItemsComponent } from '../list-items/list-items.component';
 import { Item, Unit } from '../../../models/Item';
 import { ItemService } from '../../../services/item/item.service';
 
-import {Observable, Subscription} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Price } from '../../../models/Price';
 
 
@@ -31,35 +31,26 @@ export class InsertItemComponent {
   }
 
   private _subscription: Subscription;
-  
-  constructor(private service: ItemService){
+
+  constructor(private service: ItemService) {
     this.setupSubscription();
   }
 
   private setupSubscription() {
-    this._subscription = this.service.itemsObservable$.pipe(
-      map(actions => 
-        actions.map(a => ({ key: a.key, ...a.payload.val() }))
-      )
-    ).subscribe(items => {
-      console.log(items);
-      this.service.storedItems = new Array<Item>();
-      this.itemNames = [];
-      items.forEach( JsonItem => {
-        let convertedItem = this.setupItem(JsonItem);
-        this.service.storedItems.push(convertedItem);
-        this.itemNames.push(convertedItem.name);
+      //adiciona items em storedItems
+      //adiciona os itemNames
+
+      this.service.items.forEach( item => {
+        console.log(item);
+        
       })
-      console.log('Saved Objects: ', this.service.storedItems);
-      return items.map(item => item.key);
-    });
   }
 
   // private setupSubscription() {
   //   this._subscription = this.service.itemsObservable$.subscribe(snapshot => {
   //     //WARNING: This block is re-runned when there`s a new change in the observed set.
   //     console.log('SUBSCRIPTION BLOCK!');
-      
+
   //     this.service.storedItems = new Array<Item>();
   //     this.itemNames = [];
   //     //TODO:
@@ -80,7 +71,7 @@ export class InsertItemComponent {
   }
 
   //TODO: permitir inserir uma data completa por fora.
-  extractPrices(prices: object[]): Price[]{
+  extractPrices(prices: object[]): Price[] {
     let tPrices = new Array<Price>();
     prices.forEach((price) => {
       tPrices.push(new Price(price['_value'], price['_date']))
@@ -94,9 +85,9 @@ export class InsertItemComponent {
 
       let selectedItemIndex = this.itemNames.indexOf(this.itemName)
 
-      if(selectedItemIndex > -1) {
+      if (selectedItemIndex > -1) {
         this.service.insertItem(this.settingSelectedItem());
-      }else{
+      } else {
         this.service.insertItem(item);
       }
       this.itemName = '';
@@ -121,14 +112,14 @@ export class InsertItemComponent {
   }
 
   search = (text$: Observable<string>) =>
-  text$.pipe(
-    debounceTime(this.config.debounceTime),
-    distinctUntilChanged(),
-    map(term => term.length < this.config.characters ? []
-      : this.itemNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0,this.config.numberOfChoices))
-  );
+    text$.pipe(
+      debounceTime(this.config.debounceTime),
+      distinctUntilChanged(),
+      map(term => term.length < this.config.characters ? []
+        : this.itemNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, this.config.numberOfChoices))
+    );
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._subscription.unsubscribe();
   }
 }
