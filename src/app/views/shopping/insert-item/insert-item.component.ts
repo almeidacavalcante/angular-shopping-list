@@ -33,15 +33,19 @@ export class InsertItemComponent {
   private _subscription: Subscription;
 
   constructor(private service: ItemService) {
-    this.setupSubscription();
+    this._subscription = service.itemEvent.subscribe( (items) => {
+      console.log('SUBSCRIBE');
+      this.setupSubscription();
+
+    })
   }
 
   private setupSubscription() {
       //adiciona items em storedItems
       //adiciona os itemNames
 
-      this.service.items.forEach( item => {
-        console.log(item);
+      this.service.storedItems.forEach( item => {
+        this.itemNames.push(item.name);
         
       })
   }
@@ -61,23 +65,6 @@ export class InsertItemComponent {
   //     });
   //   });
   // }
-
-  public setupItem(item: {}) {
-    let tempItem = new Item(item['_name'], item['_unit']);
-    tempItem.isPurchased = true;
-    tempItem.id = item['key'];
-    tempItem.prices = this.extractPrices(item['_prices']);
-    return tempItem;
-  }
-
-  //TODO: permitir inserir uma data completa por fora.
-  extractPrices(prices: object[]): Price[] {
-    let tPrices = new Array<Price>();
-    prices.forEach((price) => {
-      tPrices.push(new Price(price['_value'], price['_date']))
-    })
-    return tPrices;
-  }
 
   private insertItem() {
     if (this.itemName != '') {

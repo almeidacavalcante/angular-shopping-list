@@ -4,7 +4,7 @@ import { ListItemsComponent } from "../../views/shopping/list-items/list-items.c
 import { Subject, Observable, Subscription } from "rxjs";
 import { PriceComponent } from "../../views/shopping/price/price.component";
 import { ShoppingList } from "../../models/ShoppingList";
-import { ItemDaoService, ItemInterface } from "../item-dao/item-dao.service";
+import { ItemDaoService } from "../item-dao/item-dao.service";
 import { AngularFireList } from "angularfire2/database";
 
 @Injectable({
@@ -19,14 +19,26 @@ export class ItemService {
 
   private itemsPromise: Promise<Item[]>
 
+  public itemEvent: EventEmitter<Item[]> = new EventEmitter();
   static listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
   public purchaseEvent: EventEmitter<PriceComponent> = new EventEmitter();
 
   constructor(private dao: ItemDaoService) {
     this.itemsPromise = this.dao.getAll();    
-    this.itemsPromise.then(item => {
-      console.log('ITEM: ',item);
+    this.itemsPromise.then(items => {
+      this._storedItems = items
+      this.itemEvent.emit();
       
+    })
+  }
+
+  public saveShoppingList() {
+    this._shoppingList.items.forEach( item => {
+      if (item.id != ''){
+        this.dao.update(item)
+      }else{
+        this.dao.create(item)
+      }
     })
   }
 
