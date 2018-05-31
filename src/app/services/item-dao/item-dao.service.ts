@@ -5,10 +5,11 @@ import { ShoppingList } from '../../models/ShoppingList';
 import { Item } from '../../models/Item';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Price } from '../../models/Price';
-import { GenericDao } from '../../shared/dao/generic-dao';
+
 import { DataSnapshot } from '@firebase/database-types';
 import { ItemInterface } from '../../models/interfaces/ItemInterface';
-import { ItemConverter } from '../../shared/helpers/ItemConverter';
+import { ItemConverter } from '../../common/helpers/ItemConverter';
+import { GenericDao } from '../../models/interfaces/generic-dao';
 
 
 @Injectable({
