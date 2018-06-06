@@ -27,7 +27,7 @@ export class ItemDaoService implements GenericDao<Item> {
   }
 
   create(model: Item): Promise<Item> {
-    console.log(model); 
+    console.log(model);
     return new Promise<Item>((resolve, reject) => {
 
     });
