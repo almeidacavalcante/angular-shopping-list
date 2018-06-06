@@ -5,6 +5,7 @@ export class ItemConverter {
     static setupItem(json: {}): Item {
         let item = new Item(json['_name'], json['_unit']);
         item.isPurchased = true;
+        item.id = json['_id'];
         item.prices = this.extractPrices(json['_prices']);
         return item;
       }

@@ -33,6 +33,7 @@ export class ItemService {
   }
 
   public saveShoppingList() {
+    debugger
     this._shoppingList.items.forEach( item => {
       if (item.id != '' || item.id != undefined){
         this.dao.update(item)

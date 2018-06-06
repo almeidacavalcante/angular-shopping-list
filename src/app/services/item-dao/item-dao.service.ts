@@ -57,9 +57,9 @@ export class ItemDaoService implements GenericDao<Item> {
       this.itemsSnapshotChanges$ = this.itemsRef.valueChanges();
 
       this.itemsSnapshotChanges$.subscribe( (items: any[]) => {
-        items.forEach( item => {         
+        items.forEach( item => {       
           this.items.push(ItemConverter.setupItem(item));
-        })
+        })        
         resolve(this.items)
       })
     }) 
