@@ -34,7 +34,7 @@ export class ItemService {
 
   public saveShoppingList() {
     this._shoppingList.items.forEach( item => {
-      if (item.id != ''){
+      if (item.id != '' || item.id != undefined){
         this.dao.update(item)
       }else{
         this.dao.create(item)

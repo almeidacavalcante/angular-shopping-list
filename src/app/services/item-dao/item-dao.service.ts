@@ -27,10 +27,20 @@ export class ItemDaoService implements GenericDao<Item> {
   }
 
   create(model: Item): Promise<Item> {
-    throw new Error("Method not implemented.");
+    console.log(model);
+    return new Promise<Item>((resolve, reject) => {
+
+    });
   }
   update(model: any): Promise<Item> {
-    throw new Error("Method not implemented.");
+    console.log(model.id);
+    
+    return new Promise<Item>((resolve, reject) => {
+      debugger
+      this.itemsRef.update(model.id, model)
+      resolve();
+    });
+    
   }
   delete(id: string | number): Promise<Item> {
     throw new Error("Method not implemented.");

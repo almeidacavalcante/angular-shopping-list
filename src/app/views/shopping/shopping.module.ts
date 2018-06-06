@@ -6,7 +6,7 @@ import { ShoppingViewComponent } from './shopping-view/shopping-view.component';
 import { FormsModule } from '@angular/forms';
 import { PriceComponent } from './price/price.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LikeComponent } from '../../shared/like/like.component';
+import { LikeComponent } from '../../common/like/like.component';
 
 @NgModule({
   imports: [
@@ -17,7 +17,9 @@ import { LikeComponent } from '../../shared/like/like.component';
   exports: [
     InsertItemComponent,
     ListItemsComponent,
-    ShoppingViewComponent
+    ShoppingViewComponent,
+    PriceComponent,
+    LikeComponent
   ],
   declarations: [
     InsertItemComponent,

@@ -1,9 +1,7 @@
-
 <zippy title="Details of the Shopping List {{id}}">
   <ul>
-    <li>Rice</li>
-    <li>Lemons</li>
-    <li>Beans</li>
-    <li>Sugar</li>
+    <li *ngFor="let item of currentDetail.shoppingList">
+      {{item}}
+    </li>
   </ul>
 </zippy>

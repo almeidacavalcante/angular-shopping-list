@@ -10,7 +10,7 @@ import { ShoppingViewComponent } from "../../views/shopping/shopping-view/shoppi
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'previous-lists', component: PreviousListsComponent },
-    { path: 'previous-list/:id', component: ListDetailComponent },
+    { path: 'previous-list/:id/:username', component: ListDetailComponent },
     { path: '', component: ShoppingViewComponent}
 ]
 

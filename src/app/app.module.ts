@@ -17,6 +17,7 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 
 import { ZippyComponent } from './common/zippy/zippy.component';
 import { AppRoutingModule } from './modules/routing/app.routing.module';
+import { ShoppingListsService } from './services/shopping-lists.service';
 
 @NgModule({
   imports: [
@@ -33,12 +34,14 @@ import { AppRoutingModule } from './modules/routing/app.routing.module';
     PreviousListsComponent,
     ListDetailComponent,
     ZippyComponent
+    
   ],
   providers: [
     ItemService,
     ItemDaoService,
     AngularFireDatabaseModule,
-    AngularFireDatabase
+    AngularFireDatabase,
+    ShoppingListsService
   ],
   bootstrap: [AppComponent]
 })

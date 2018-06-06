@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'like',
   templateUrl: './like.component.html',
-  styleUrls: ['./like.component.css']
+  styleUrls: ['./like.component.less']
 })
 export class LikeComponent{
 
