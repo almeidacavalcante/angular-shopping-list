@@ -57,7 +57,7 @@ export class ItemService {
  
 
   /**
-   * sortItems
+   * sortItems 
    */
   public sortItems() {
     this._shoppingList.items.sort((item) => {
