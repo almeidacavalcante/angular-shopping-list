@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input, ElementRef, OnDestroy } from '@angular/core';
-import { ItemService } from '../../../services/item/item.service';
 import { Item } from '../../../models/Item';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import * as $ from 'jquery';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PriceComponent } from '../price/price.component';
 import { Subject, Observable, Subscription } from 'rxjs';
+import { ItemService } from '../../../services/item.service';
 
 @Component({
   selector: 'app-list-items',

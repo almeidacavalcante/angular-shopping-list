@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ItemService } from '../../../services/item/item.service';
 import * as $ from "jquery";
 import { NgbModule, ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DecimalPipe } from '@angular/common';
 import { Item } from '../../../models/Item';
 import { Subscription } from 'rxjs';
 import { Price } from '../../../models/Price';
-
+import { ItemService } from '../../../services/item.service';
 
 
 @Component({

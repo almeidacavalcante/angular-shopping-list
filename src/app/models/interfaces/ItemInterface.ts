@@ -1,11 +1,9 @@
+import { Price } from "../Price";
+
 export interface ItemInterface {
-    $key?: string;
     id?:string;
     isPurchased?:boolean;
     name?:string;
-    prices?: {
-      date?: number,
-      value?: number
-    };
+    prices?:Array<Price>;
     unit?: string;
   }

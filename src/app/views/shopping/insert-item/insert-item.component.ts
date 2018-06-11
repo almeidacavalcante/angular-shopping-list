@@ -4,7 +4,7 @@ import * as $ from "../../../../../node_modules/jquery";
 
 import { ListItemsComponent } from '../list-items/list-items.component';
 import { Item, Unit } from '../../../models/Item';
-import { ItemService } from '../../../services/item/item.service';
+import { ItemService } from '../../../services/item.service';
 
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class InsertItemComponent {
   public itemNames = [];
 
   private config = {
-    characters: 2,
+    characters: 1,
     numberOfChoices: 10,
     debounceTime: 50,
   }

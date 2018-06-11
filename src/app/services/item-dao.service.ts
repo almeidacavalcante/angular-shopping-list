@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-import { ShoppingList } from '../../models/ShoppingList';
-import { Item } from '../../models/Item';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Price } from '../../models/Price';
+import { ShoppingList } from '../models/ShoppingList';
+import { Item } from '../models/Item';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { Price } from '../models/Price';
 
 import { DataSnapshot } from '@firebase/database-types';
-import { ItemInterface } from '../../models/interfaces/ItemInterface';
-import { ItemConverter } from '../../common/helpers/ItemConverter';
-import { GenericDao } from '../../models/interfaces/generic-dao';
+import { ItemInterface } from '../models/interfaces/ItemInterface';
+import { ItemConverter } from '../common/helpers/ItemConverter';
+import { GenericDao } from '../models/interfaces/generic-dao';
 
 
 @Injectable({
@@ -17,7 +17,7 @@ import { GenericDao } from '../../models/interfaces/generic-dao';
 })
 export class ItemDaoService implements GenericDao<Item> {
   
-  itemsRef: AngularFireList<ItemInterface[]>;
+  itemsRef: AngularFireList<Item>;
   itemsSnapshotChanges$ : Observable<any[]>;
 
   items = new Array<Item>();
@@ -27,16 +27,18 @@ export class ItemDaoService implements GenericDao<Item> {
   }
 
   create(model: Item): Promise<Item> {
-    console.log(model);
+    console.log('MODEL ID Create: ', model);
     return new Promise<Item>((resolve, reject) => {
-
+      model.isPersisted = true;
+      debugger
+      this.itemsRef.push(model)
+      resolve();
     });
   }
   update(model: any): Promise<Item> {
-    console.log(model.id);
+    console.log('MODEL ID: ',model.id);
     
     return new Promise<Item>((resolve, reject) => {
-      debugger
       this.itemsRef.update(model.id, model)
       resolve();
     });
@@ -53,11 +55,15 @@ export class ItemDaoService implements GenericDao<Item> {
 
     return new Promise( (resolve, reject) => {
 
-      this.itemsRef = this.db.list('/items') as AngularFireList<ItemInterface[]>;
-      this.itemsSnapshotChanges$ = this.itemsRef.valueChanges();
+      this.itemsRef = this.db.list('/items') as AngularFireList<Item>;
+      this.itemsSnapshotChanges$ = this.itemsRef.snapshotChanges();
 
-      this.itemsSnapshotChanges$.subscribe( (items: any[]) => {
-        items.forEach( item => {       
+      this.itemsSnapshotChanges$.subscribe( (snapshot: any[]) => {
+        snapshot.forEach( snapshotItem => {     
+        
+          let item = ItemConverter.setupItem(snapshotItem.payload.val());
+          item.id = snapshotItem.key;
+
           this.items.push(ItemConverter.setupItem(item));
         })        
         resolve(this.items)

@@ -9,14 +9,18 @@ export class Item {
     private _prices: Array<Price>;
     private _unit: Unit;
     private _isPurchased: boolean;
-
+    private _isPersisted : boolean;
+    
+    
+    
     constructor(name: string, unit: Unit){
         this._name = name;
         this._unit = unit;
         this._isPurchased = false;
+        this._isPersisted;
         this._prices = new Array<Price>();
     }
-
+    
     public toggleIsPurchasedState() {
         this._isPurchased = !this._isPurchased;
     }
@@ -29,7 +33,7 @@ export class Item {
     public get isPurchased(): boolean{
         return this._isPurchased;
     }
-
+    
     public set isPurchased(v: boolean){
         this._isPurchased = v;
     }
@@ -37,7 +41,17 @@ export class Item {
     public get name() : string {
         return this._name;
     }
-
+    public get isPersisted() : boolean {
+        return this._isPersisted;
+    }
+    public set isPersisted(v : boolean) {
+        if (!this._isPersisted){
+            this._isPersisted = v;
+        } else {
+            throw new Error('This item is already persisted');
+        }
+    }
+    
     public get unit() : string {
         return this._unit;
     }

@@ -1,10 +1,10 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Item } from "../../models/Item";
-import { ListItemsComponent } from "../../views/shopping/list-items/list-items.component";
+import { Item } from "../models/Item";
+import { ListItemsComponent } from "../views/shopping/list-items/list-items.component";
 import { Subject, Observable, Subscription } from "rxjs";
-import { PriceComponent } from "../../views/shopping/price/price.component";
-import { ShoppingList } from "../../models/ShoppingList";
-import { ItemDaoService } from "../item-dao/item-dao.service";
+import { PriceComponent } from "../views/shopping/price/price.component";
+import { ShoppingList } from "../models/ShoppingList";
+import { ItemDaoService } from "./item-dao.service";
 import { AngularFireList } from "angularfire2/database";
 
 @Injectable({
@@ -33,9 +33,9 @@ export class ItemService {
   }
 
   public saveShoppingList() {
-    debugger
     this._shoppingList.items.forEach( item => {
-      if (item.id != '' || item.id != undefined){
+      
+      if (item.isPersisted){
         this.dao.update(item)
       }else{
         this.dao.create(item)
@@ -52,6 +52,7 @@ export class ItemService {
   }
 
   public insertItem(item: Item): void {
+    debugger
     this._shoppingList.add(item);
     ItemService.listUpdater.emit();
   }
