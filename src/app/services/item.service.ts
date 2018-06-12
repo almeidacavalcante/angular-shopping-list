@@ -31,7 +31,10 @@ export class ItemService {
       
     })
   }
-
+  /**
+   * Esta função pega todos os items armazenados na shoppingList
+   * e insere-os ou atualiza-os na base de dados;
+   */
   public saveShoppingList() {
     this._shoppingList.items.forEach( item => {
       
@@ -50,9 +53,11 @@ export class ItemService {
     this._shoppingList = new ShoppingList();
     ItemService.listUpdater.emit();
   }
-
+  /**
+   * @param Item
+   * Recebe um item, adiciona à shoppingList e envia um EventEmitter listUpdater
+   */
   public insertItem(item: Item): void {
-    debugger
     this._shoppingList.add(item);
     ItemService.listUpdater.emit();
   }

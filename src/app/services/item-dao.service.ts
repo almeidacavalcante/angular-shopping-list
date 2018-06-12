@@ -30,7 +30,7 @@ export class ItemDaoService implements GenericDao<Item> {
     console.log('MODEL ID Create: ', model);
     return new Promise<Item>((resolve, reject) => {
       model.isPersisted = true;
-      debugger
+
       this.itemsRef.push(model)
       resolve();
     });

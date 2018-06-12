@@ -3,14 +3,17 @@
 export class Price {
     private _date : number;
     private _value : number;
+    private _marketId : string;
 
-    constructor(value: number, date?: number){
+    constructor(value: number, date?: number, marketId?: string){
         if (date){
             this._date = date;
             this._value = value;
+            this._marketId = marketId;
         }else{
             this._date = new Date().getTime();      
             this._value = value;
+            this._marketId = marketId;            
         }
     }
 
@@ -26,4 +29,11 @@ export class Price {
     public set date(v : number) {
         this._date = v;
     }
+    public get marketId() : string {
+        return this._marketId;
+    }
+    public set marketId(v : string) {
+        this._marketId = v;
+    }
+    
 }

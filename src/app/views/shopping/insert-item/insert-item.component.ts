@@ -17,7 +17,6 @@ import { Price } from '../../../models/Price';
   templateUrl: './insert-item.component.html',
   styleUrls: ['./insert-item.component.css']
 })
-
 export class InsertItemComponent {
   public unit: Unit = Unit.Kg;
 
