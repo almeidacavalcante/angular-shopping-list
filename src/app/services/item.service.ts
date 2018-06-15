@@ -6,6 +6,7 @@ import { PriceComponent } from "../views/shopping/price/price.component";
 import { ShoppingList } from "../models/ShoppingList";
 import { ItemDaoService } from "./item-dao.service";
 import { AngularFireList } from "angularfire2/database";
+import { Market } from "../models/Market";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,16 @@ export class ItemService {
       
     })
   }
+
+  /**
+   * insertMarket
+   * @param market 
+   * @description Insere o mercado na shoppingList
+   */
+  public insertMarket(market: Market) {
+    this._shoppingList.market = market;
+  }
+
   /**
    * Esta função pega todos os items armazenados na shoppingList
    * e insere-os ou atualiza-os na base de dados;

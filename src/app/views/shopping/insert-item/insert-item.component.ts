@@ -40,30 +40,11 @@ export class InsertItemComponent {
   }
 
   private setupSubscription() {
-      //adiciona items em storedItems
-      //adiciona os itemNames
-
       this.service.storedItems.forEach( item => {
         this.itemNames.push(item.name);
         
       })
   }
-
-  // private setupSubscription() {
-  //   this._subscription = this.service.itemsObservable$.subscribe(snapshot => {
-  //     //WARNING: This block is re-runned when there`s a new change in the observed set.
-  //     console.log('SUBSCRIPTION BLOCK!');
-
-  //     this.service.storedItems = new Array<Item>();
-  //     this.itemNames = [];
-  //     //TODO:
-  //     snapshot.forEach(JsonItem => {
-  //       let convertedItem = this.setupItem(JsonItem);
-  //       this.service.storedItems.push(convertedItem);
-  //       this.itemNames.push(convertedItem.name);
-  //     });
-  //   });
-  // }
 
   private insertItem() {
     if (this.itemName != '') {
@@ -97,7 +78,8 @@ export class InsertItemComponent {
     $(event.target).button('toggle')
   }
 
-  search = (text$: Observable<string>) =>
+  public search = 
+    (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(this.config.debounceTime),
       distinctUntilChanged(),

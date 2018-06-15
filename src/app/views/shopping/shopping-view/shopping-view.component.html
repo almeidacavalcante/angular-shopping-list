@@ -3,7 +3,19 @@
   <hr>
   <div class="form-group">
     <label for="market">Supermarket</label>
-    <input type="text" class="form-control" id="market" aria-describedby="market input" placeholder="Enter the supermarket name...">
+    <input 
+    #varMarket 
+    id="typeahead-basic-market" 
+    type="text" 
+    (keyup.enter)="insertMarket(varMarket.value)" 
+    [ngbTypeahead]="search" 
+    [(ngModel)]="marketName" 
+    (input)="marketName = $event.target.value" 
+    class="form-control" 
+    placeholder="Enter the market..." 
+    aria-label="Enter the market..." 
+    aria-describedby="basic-addon2">
+    
   </div>
   <app-insert-item></app-insert-item>
   <app-list-items></app-list-items>
