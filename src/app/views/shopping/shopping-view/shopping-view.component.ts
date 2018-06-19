@@ -15,10 +15,8 @@ export class ShoppingViewComponent implements OnInit {
 
   public isFinished: boolean = true;
   public markets = new Array<Market>();
-  public marketNames = new Array<string>();
-  private _selectedMarket : string;
-  
-  
+  public marketName: string;
+  private _selectedMarket : Market;
   
   private config = {
     characters: 1,
@@ -31,19 +29,30 @@ export class ShoppingViewComponent implements OnInit {
   }
   
   /**
-   * @param marketName Nome do Mercado onde as compras estão sendo feitas no momento
+   * @param marketName Objeto Market
    * @description Chama o serviço e insere o mercado na shoppingList atual
    */
   public insertMarket(marketName: string) {
-    
-    // this.service.insertMarket(marketName)
+    this.service.insertMarket(this.getMarketByName(marketName))
+  }
+
+  /**
+   * getMarketByName
+   * @param marketName nome do mercado para retornar o objeto completo
+   */
+  public getMarketByName(marketName: string): Market {
+    let index = this.markets.findIndex( market => {
+      return market.name == marketName;
+    })
+
+    if (index > -1) return this.markets[index];
   }
   
-  public get selectedMarket() : string {
+  public get selectedMarket() : Market {
     return this._selectedMarket;
   }
 
-  public set selectedMarket(v : string) {
+  public set selectedMarket(v : Market) {
     this._selectedMarket = v;
   }
   
@@ -55,16 +64,16 @@ export class ShoppingViewComponent implements OnInit {
     m2.id = 'nor1';
     m3.id = 'hyp1';
     this.markets.push(m1, m2, m3);
-    this.markets.forEach(market => {
-      this.marketNames.push(market.name);
-    });
+    // this.markets.forEach(market => {
+    //   this.marketNames.push(market.name);
+    // });
   }
 
   private setupSubscription() {
-    this.service.storedItems.forEach( item => {
-      this.marketNames.push(item.name);
+    // this.service.storedItems.forEach( item => {
+    //   this.marketNames.push(item.name);
       
-    })
+    // })
 }
 
 public search = 
@@ -73,7 +82,7 @@ public search =
     debounceTime(this.config.debounceTime),
     distinctUntilChanged(),
     map(term => term.length < this.config.characters ? []
-      : this.marketNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, this.config.numberOfChoices))
+      : this.markets.map(market => market.name).filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, this.config.numberOfChoices))
   );
 
   ngOnInit() {

@@ -45,7 +45,16 @@ export class InsertItemComponent {
         
       })
   }
-
+  
+  public search = 
+    (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(this.config.debounceTime),
+      distinctUntilChanged(),
+      map(term => term.length < this.config.characters ? []
+        : this.itemNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, this.config.numberOfChoices))
+    );
+  
   private insertItem() {
     if (this.itemName != '') {
       let item = new Item(this.itemName, this.unit);
@@ -78,14 +87,6 @@ export class InsertItemComponent {
     $(event.target).button('toggle')
   }
 
-  public search = 
-    (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(this.config.debounceTime),
-      distinctUntilChanged(),
-      map(term => term.length < this.config.characters ? []
-        : this.itemNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, this.config.numberOfChoices))
-    );
 
   ngOnDestroy() {
     this._subscription.unsubscribe();

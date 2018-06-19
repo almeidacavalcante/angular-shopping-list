@@ -6,6 +6,7 @@ import { Item } from '../../../models/Item';
 import { Subscription } from 'rxjs';
 import { Price } from '../../../models/Price';
 import { ItemService } from '../../../services/item.service';
+import { Market } from '../../../models/Market';
 
 
 @Component({
@@ -18,13 +19,14 @@ export class PriceComponent{
   closeResult: string;
 
   //TODO: DUMMY NUMBER
-  public likes = 9;
+  public likes = 0;
 
   public value : number;
   @Input() item : Item;
+  @Input() market : Market;
 
   constructor(private modalService: NgbModal, public service: ItemService) {
-
+    this.market = this.service.market;
   }
 
   /**
@@ -52,7 +54,7 @@ export class PriceComponent{
   }
 
   private purchaseRoutine(): void {
-    this.item.purchase(new Price(this.value));
+    this.item.purchase(new Price(this.value, new Date().getTime(), this.market.id));
     this.service.sortItems();
     this.service.onCheck();
     console.log(this.item);

@@ -19,6 +19,7 @@ export class ItemService {
   subscription: Subscription;
 
   private itemsPromise: Promise<Item[]>
+  private _market: Market;
 
   public itemEvent: EventEmitter<Item[]> = new EventEmitter();
   static listUpdater: EventEmitter<ListItemsComponent> = new EventEmitter();
@@ -33,12 +34,17 @@ export class ItemService {
     })
   }
 
+  get market(): Market {
+    return this._market;
+  }
+
   /**
    * insertMarket
    * @param market 
    * @description Insere o mercado na shoppingList
    */
   public insertMarket(market: Market) {
+    this._market = market;
     this._shoppingList.market = market;
   }
 
@@ -48,7 +54,7 @@ export class ItemService {
    */
   public saveShoppingList() {
     this._shoppingList.items.forEach( item => {
-      
+      debugger
       if (item.isPersisted){
         this.dao.update(item)
       }else{
