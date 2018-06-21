@@ -15,7 +15,7 @@ export class ItemConverter {
     static extractPrices(json: object[]): Price[]{
         let prices = new Array<Price>();
         json.forEach((price) => {
-          prices.push(new Price(price['_value'], price['_date']))
+          prices.push(new Price(price['_value'], price['_date'], price['_marketId']))
         })
         return prices;
       }

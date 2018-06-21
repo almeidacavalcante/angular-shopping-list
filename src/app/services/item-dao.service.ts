@@ -35,9 +35,9 @@ export class ItemDaoService implements GenericDao<Item> {
       resolve();
     });
   }
-  update(model: any): Promise<Item> {
+  update(model: Item): Promise<Item> {
     console.log('MODEL ID: ',model.id);
-    
+    debugger
     return new Promise<Item>((resolve, reject) => {
       this.itemsRef.update(model.id, model)
       resolve();
