@@ -4,7 +4,7 @@ export class Market {
     private _id : string;
         
     constructor(name: string) {
-        this.name = name
+        this.name = name;
     }
     
     public get id() : string {

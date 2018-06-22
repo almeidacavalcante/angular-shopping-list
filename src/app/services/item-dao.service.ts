@@ -23,6 +23,8 @@ export class ItemDaoService implements GenericDao<Item> {
   items = new Array<Item>();
 
   constructor(private db: AngularFireDatabase) {
+    this.itemsRef = this.db.list('/items') as AngularFireList<Item>;
+    this.itemsSnapshotChanges$ = this.itemsRef.snapshotChanges();
     this.getAll();
   }
 
@@ -35,6 +37,7 @@ export class ItemDaoService implements GenericDao<Item> {
       resolve();
     });
   }
+
   update(model: Item): Promise<Item> {
     console.log('MODEL ID: ',model.id);
     
@@ -42,11 +45,12 @@ export class ItemDaoService implements GenericDao<Item> {
       this.itemsRef.update(model.id, model)
       resolve();
     });
-    
   }
+
   delete(id: string | number): Promise<Item> {
     throw new Error("Method not implemented.");
   }
+
   get(id: string | number): Promise<any> {
     throw new Error("Method not implemented.");
   }
@@ -55,8 +59,7 @@ export class ItemDaoService implements GenericDao<Item> {
 
     return new Promise( (resolve, reject) => {
 
-      this.itemsRef = this.db.list('/items') as AngularFireList<Item>;
-      this.itemsSnapshotChanges$ = this.itemsRef.snapshotChanges();
+
 
       this.itemsSnapshotChanges$.subscribe( (snapshot: any[]) => {
         snapshot.forEach( snapshotItem => {     
