@@ -17,7 +17,6 @@ export class MarketDaoService implements GenericDao<Market>{
   constructor(private db: AngularFireDatabase) { 
     this._marketsRef = this.db.list('/markets') as AngularFireList<Market>;
     this._marketsSnapshotChanges$ = this._marketsRef.snapshotChanges();
-    this.getAll();
   }
 
   create(model: Market): Promise<Market> {

@@ -1,22 +1,29 @@
 <div class="container">
   <h2>Shopping List</h2>
   <hr>
-  <div class="form-group">
-    <label for="market">Supermarket</label>
+
+  <label for="exampleInputEmail1">Market</label>
+  <div class="input-group mb-3">
     <input 
-    #varMarket 
-    id="typeahead-basic-market" 
-    type="text" 
-    (keyup.enter)="insertMarket(varMarket.value)" 
-    [ngbTypeahead]="search" 
-    [(ngModel)]="marketName" 
-    (input)="marketName = $event.target.value" 
-    class="form-control" 
-    placeholder="Enter the market..." 
-    aria-label="Enter the market..." 
-    aria-describedby="basic-addon2">
-    
+      #varMarket 
+      id="typeahead-basic-market" 
+      type="text" 
+      (keyup.enter)="insertMarket(varMarket.value)"
+      [ngbTypeahead]="search" 
+      [(ngModel)]="marketName" 
+      (input)="marketName = $event.target.value" 
+      class="form-control" 
+      placeholder="Enter the market..." 
+      aria-label="Enter the market..." 
+      aria-describedby="basic-addon2">
+  
+    <div *ngIf="marketNotFound" class="input-group-append">
+      <button (click)="insertMarket()" class="btn btn-primary" type="button">New</button>
+    </div>
   </div>
+
+
+
   <app-insert-item></app-insert-item>
   <app-list-items></app-list-items>
   <button class="btn btn-primary" type="button" (click)="save()" [disabled]="!isFinished">Finalize Shopping List</button>
