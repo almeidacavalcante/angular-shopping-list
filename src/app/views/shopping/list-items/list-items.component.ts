@@ -6,6 +6,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { PriceComponent } from '../price/price.component';
 import { Subject, Observable, Subscription } from 'rxjs';
 import { ItemService } from '../../../services/item.service';
+import { MarketService } from '../../../services/market.service';
+import { Market } from '../../../models/Market';
 
 @Component({
   selector: 'app-list-items',
@@ -17,17 +19,17 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   private items : Item[];
   private closeResult: string;
   private subscription: Subscription;
+  
 
   @ViewChild('campoInput') campoInput: ElementRef;
 
-  constructor(private service: ItemService, private modalService: NgbModal) {}
+  constructor(private service: ItemService, private modalService: NgbModal, private marketService: MarketService) { }
 
   ngOnInit() {
     this.subscription = ItemService.listUpdater.subscribe( () => {
-        console.log('listUpdated: EVENT RECEIVED!');
-        this.items =  this.service.items;
-
-      });
+      console.log('listUpdated: EVENT RECEIVED!');
+      this.items =  this.service.items;
+    });
   }
 
   /**

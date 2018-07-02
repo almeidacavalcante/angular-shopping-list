@@ -58,9 +58,6 @@ export class ItemDaoService implements GenericDao<Item> {
   getAll(): Promise<Item[]> {
 
     return new Promise( (resolve, reject) => {
-
-
-
       this.itemsSnapshotChanges$.subscribe( (snapshot: any[]) => {
         snapshot.forEach( snapshotItem => {     
         

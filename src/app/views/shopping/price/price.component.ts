@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import * as $ from "jquery";
-import { NgbModule, ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import * as $ from 'jquery';
+import { NgbModule, ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DecimalPipe } from '@angular/common';
 import { Item } from '../../../models/Item';
 import { Subscription } from 'rxjs';
 import { Price } from '../../../models/Price';
 import { ItemService } from '../../../services/item.service';
 import { Market } from '../../../models/Market';
+import { MarketService } from '../../../services/market.service';
 
 
 @Component({
@@ -14,39 +15,37 @@ import { Market } from '../../../models/Market';
   templateUrl: './price.component.html',
   styleUrls: ['./price.component.css']
 })
-export class PriceComponent{
+export class PriceComponent {
 
   closeResult: string;
 
-  //TODO: DUMMY NUMBER
+  // TODO: DUMMY NUMBER
   public likes = 0;
 
-  public value : number;
-  @Input() item : Item;
-  @Input() market : Market;
+  public value: number;
+  @Input('item') item: Item;
+  private market: Market;
 
-  constructor(private modalService: NgbModal, public service: ItemService) {
-    this.market = this.service.market;
-  }
+  constructor(private modalService: NgbModal, public service: ItemService, private marketservice: MarketService) { }
 
   /**
    * onLikeChanged
    */
   public onLikeChanged(isActive) {
-    console.log("onLikeChanged: ", isActive);    
+    console.log('onLikeChanged: ', isActive);
   }
 
 
   open(content) {
-    
+
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      
-      if (result == 'delete'){
+
+      if (result === 'delete') {
         this.service.delete(this.item);
-      }else{
+      } else {
         this.purchaseRoutine();
-      }     
+      }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -54,7 +53,8 @@ export class PriceComponent{
   }
 
   private purchaseRoutine(): void {
-    this.item.purchase(new Price(this.value, new Date().getTime(), this.market.id));
+    debugger
+    this.item.purchase(new Price(this.value, new Date().getTime(), this.marketservice.selectedMarket.id));
     this.service.sortItems();
     this.service.onCheck();
     console.log(this.item);

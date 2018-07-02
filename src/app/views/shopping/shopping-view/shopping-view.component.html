@@ -17,8 +17,8 @@
       aria-label="Enter the market..." 
       aria-describedby="basic-addon2">
   
-    <div *ngIf="marketNotFound" class="input-group-append">
-      <button (click)="insertMarket()" class="btn btn-primary" type="button">New</button>
+    <div class="input-group-append">
+      <button (click)="insertMarket(varMarket.value)" class="btn btn-primary" type="button">Insert</button>
     </div>
   </div>
 

@@ -22,7 +22,9 @@ export class MarketDaoService implements GenericDao<Market>{
   create(model: Market): Promise<Market> {
     console.log('Market: ', model);
     return new Promise( resolve => {
-      this._marketsRef.push(model);
+      let id = this._marketsRef.push(model).key;
+      model.id = id;
+      resolve(model);
     })
   }
 
