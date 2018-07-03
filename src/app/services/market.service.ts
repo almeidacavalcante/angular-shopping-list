@@ -8,7 +8,8 @@ import { Market } from '../models/Market';
 export class MarketService {
 
   private _markets: Promise<Market[]>;
-
+  private _selectedMarket : Market;
+  
   constructor(private dao: MarketDaoService) { 
     this._markets = dao.getAll();
   }
@@ -16,14 +17,21 @@ export class MarketService {
   public get markets() : Promise<Market[]> {
     return this._markets;
   } 
-
+  
   /**
    * add
    * @param name: @type string
    * 
    * TODO: Dar resposta apos a insercao
    */
-  public add(name: string) {
-    this.dao.create(new Market(name))
+  public add(name: string): Promise<Market>{
+    return this.dao.create(new Market(name))
+  }
+
+  public get selectedMarket() : Market {
+    return this._selectedMarket;
+  }
+  public set selectedMarket(v : Market) {
+    this._selectedMarket = v;
   }
 }

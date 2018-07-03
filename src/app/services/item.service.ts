@@ -30,7 +30,6 @@ export class ItemService {
     this.itemsPromise.then(items => {
       this._storedItems = items
       this.itemEvent.emit();
-      
     })
   }
 
@@ -45,7 +44,6 @@ export class ItemService {
    */
   public insertMarket(market: Market) {
     this._market = market;
-    this._shoppingList.market = market;
   }
 
   /**
@@ -54,7 +52,7 @@ export class ItemService {
    */
   public saveShoppingList() {
     this._shoppingList.items.forEach( item => {
-      debugger
+      
       if (item.isPersisted){
         this.dao.update(item)
       }else{
@@ -104,22 +102,31 @@ export class ItemService {
    * TODO: Change this ineficient routine
    */
   public onCheck() {
-    // let isFinished = true;
-    // this._shoppingList.items.forEach( (item) => {
-    //   if (item.state == State.Listed){
-    //     isFinished = false;
-    //   }
-    // })
-    // if (isFinished){
-    //   this._shoppingList.isFinished = true;
-    // }
+    let isFinished = true;
+    this._shoppingList.items.forEach( (item) => {
+      if (item.isPurchased == false){
+        isFinished = false;
+      }
+    })
+    if (isFinished){
+      this._shoppingList.isFinished = true;
+      this.purchaseEvent.emit();
+    }
   }
 
   public get storedItems() : Array<Item> {
     return this._storedItems;
   }
+
   public set storedItems(v : Array<Item>) {
     this._storedItems = v;
+  }
+
+  /**
+   * getShoppingListState
+   */
+  public getShoppingListState(): boolean {
+    return this._shoppingList.isFinished
   }
   
   /**

@@ -14,13 +14,13 @@
       <th scope="row">{{item.id}}</th>
       <td>{{item.name}}</td>
       <td>{{item.unit}}</td>
-      <td>{{item.price?.value | currency:'BRL':'symbol':'1.2-2'}}</td>
+      <td>{{ (item.isPurchased ? item.lastPrice?.value : 0) | currency:'BRL':'symbol':'1.2-2'}}</td>
 
       <td>
-        <price-popup [item]="item">{{item.name}}</price-popup>
+        <price-popup [item]="item" [disabled]="!disabled">{{item.name}}</price-popup>
       </td>
       <td>
-        <button *ngIf="!(item.isPurchased) as isPurchased" id="delete" class="btn btn-danger" [disabled]="!isPurchased">
+        <button *ngIf="!(item.isPurchased) as isPurchased" id="delete" class="btn btn-danger" [disabled]="!isPurchased || !disabled">
           <i class="fa fa-trash-o prevent-click"></i>
         </button>
       </td>

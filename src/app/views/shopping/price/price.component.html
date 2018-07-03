@@ -25,15 +25,15 @@
     
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="finalize('finalize')">Finalize</button>
+    <button type="button" class="btn btn-success" [disabled]="value == null" (click)="finalize('finalize')">Finalize</button>
     <button type="button" class="btn btn-danger" (click)="delete('delete')"><i class="fa fa-trash-o prevent-click"></i></button>
   </div>
 </ng-template>
 
 <button id="purchase" *ngIf="!(item.isPurchased), else purchased" 
-  [disabled]="(item.isPurchased)"  class="btn btn-success" 
+  [disabled]="(item.isPurchased) || disabled" class="btn btn-success" 
   (click)="open(content)">Purchase</button>
 
 <ng-template #purchased>
-  <button id="purchase" class="btn btn-warning" (click)="open(content)">Edit</button>
+  <button id="purchase" [disabled]="disabled" class="btn btn-warning" (click)="open(content)">Edit</button>
 </ng-template>

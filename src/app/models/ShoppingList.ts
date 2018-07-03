@@ -3,14 +3,14 @@ import { Market } from "./Market";
 
 export class ShoppingList {
     
-    private _market : Market;
     private _date : number;
     private _items : Array<Item>;
-    private _isFinished = false;
+    private _isFinished: boolean;
 
     constructor(){
         this._items = new Array<Item>();
         this._date = new Date().getTime();
+        this._isFinished = false;
     }
 
     /**
@@ -24,7 +24,11 @@ export class ShoppingList {
      * isFinished
      */
     public set isFinished(flag: boolean) {
-        this.isFinished = flag;
+        this._isFinished = flag;
+    }
+
+    public get isFinished(): boolean {
+        return this._isFinished;
     }
 
     public get items() : Array<Item> {
@@ -40,13 +44,5 @@ export class ShoppingList {
     }
     public set date(v : number) {
         this._date = v;
-    }
-    
-    public get market() : Market {
-        return this._market;
-    }
-    public set market(v : Market) {
-        this._market = v;
-    }
-    
+    }   
 }
