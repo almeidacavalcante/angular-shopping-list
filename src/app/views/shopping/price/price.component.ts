@@ -22,8 +22,9 @@ export class PriceComponent {
   // TODO: DUMMY NUMBER
   public likes = 0;
 
-  public value: number;
   @Input('item') item: Item;
+  @Input('disabled') disabled: boolean;
+  public value: number;
   private market: Market;
 
   constructor(private modalService: NgbModal, public service: ItemService, private marketservice: MarketService) { }

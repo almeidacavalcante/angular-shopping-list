@@ -64,6 +64,10 @@ export class Item {
         this._prices = v;
     }
 
+    public get lastPrice(): Price {
+        return this.prices[this.prices.length-1];
+    }
+
     /**
      * actualPrice
      */

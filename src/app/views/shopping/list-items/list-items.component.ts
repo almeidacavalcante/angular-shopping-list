@@ -20,8 +20,9 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   private closeResult: string;
   private subscription: Subscription;
   
-
+  @Input('disabled') disabled: boolean;
   @ViewChild('campoInput') campoInput: ElementRef;
+  @ViewChild('table') table: ElementRef;
 
   constructor(private service: ItemService, private modalService: NgbModal, private marketService: MarketService) { }
 

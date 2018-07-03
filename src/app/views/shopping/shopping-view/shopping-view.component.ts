@@ -75,6 +75,14 @@ export class ShoppingViewComponent implements OnInit {
   }
 
   /**
+   * editMarket
+   */
+  public editMarket() {
+    this.isMarketSelected = false;
+    this.marketService.selectedMarket = null;
+  }
+
+  /**
    * getMarketByName
    * @param marketName nome do mercado para retornar o objeto completo
    */
@@ -119,6 +127,7 @@ public search = (text$: Observable<string>) =>
   public clear() {
     this.marketName = '';
     this.isMarketSelected = false;
+    this.isFinished = false;
   }
 
   /**
