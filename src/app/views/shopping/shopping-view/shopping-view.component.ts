@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ShoppingList } from '../../../models/ShoppingList';
 import { ItemService } from '../../../services/item.service';
 import { Market } from '../../../models/Market';
@@ -14,9 +14,14 @@ import { MarketService } from '../../../services/market.service';
 })
 export class ShoppingViewComponent implements OnInit {
 
-  public isFinished = true;
+  public isFinished = false;
+  public isMarketSelected = false;
   public markets = new Array<Market>();
   public marketName: string;
+
+  private _itemSubscription: Subscription;
+
+  @ViewChild('varMarket') varMarket: HTMLInputElement;
 
   private config = {
     characters: 1,
@@ -28,8 +33,16 @@ export class ShoppingViewComponent implements OnInit {
     // this.setupMockMarkets();
     this.marketService.markets.then( markets => {
       this.markets = markets;
-      console.log('Mercados integrados!');
     });
+
+    this._itemSubscription = this.itemService.purchaseEvent.subscribe( _ => this.stateHandler() );
+  }
+
+  /**
+   * stateHandler
+   */
+  public stateHandler() {
+    this.isFinished = this.itemService.getShoppingListState();
   }
 
   /**
@@ -42,7 +55,6 @@ export class ShoppingViewComponent implements OnInit {
   public async createMarket(marketName: string) {
     // poderia retornar um promise com o mercado para ser adicionado na lista.
     this.marketService.add(marketName).then( market => {
-      debugger
       this.marketService.selectedMarket = market;
       this.markets.push(market);
     });
@@ -54,11 +66,11 @@ export class ShoppingViewComponent implements OnInit {
    */
   public insertMarket(marketName: string) {
     const market = this.getMarketByName(marketName);
-
+    this.isMarketSelected = true;
     if (market == null) {
       this.createMarket(marketName);
     } else {
-      this.itemService.insertMarket(market);
+      this.marketService.selectedMarket = market;
     }
   }
 
@@ -100,6 +112,15 @@ public search = (text$: Observable<string>) =>
 
   ngOnInit() { }
 
+
+  /**
+   * clear the market input
+   */
+  public clear() {
+    this.marketName = '';
+    this.isMarketSelected = false;
+  }
+
   /**
    * save
    */
@@ -107,6 +128,7 @@ public search = (text$: Observable<string>) =>
     if (this.isFinished) {
       this.itemService.saveShoppingList();
       this.itemService.clearShoppingList();
+      this.clear();
     } else {
       throw new Error('You cannot save a shoppingList while is there any unpurchased items');
     }

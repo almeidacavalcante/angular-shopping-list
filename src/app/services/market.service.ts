@@ -32,7 +32,6 @@ export class MarketService {
     return this._selectedMarket;
   }
   public set selectedMarket(v : Market) {
-    debugger
     this._selectedMarket = v;
   }
 }

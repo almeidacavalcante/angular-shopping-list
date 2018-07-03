@@ -53,11 +53,9 @@ export class PriceComponent {
   }
 
   private purchaseRoutine(): void {
-    debugger
     this.item.purchase(new Price(this.value, new Date().getTime(), this.marketservice.selectedMarket.id));
     this.service.sortItems();
     this.service.onCheck();
-    console.log(this.item);
   }
 
   private getDismissReason(reason: any): string {

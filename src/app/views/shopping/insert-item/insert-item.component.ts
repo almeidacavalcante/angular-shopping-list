@@ -20,6 +20,8 @@ import { Price } from '../../../models/Price';
 export class InsertItemComponent {
   public unit: Unit = Unit.Kg;
 
+  @Input('disabled') disabled: boolean = true;
+
   public itemName: string;
   public itemNames = [];
 
