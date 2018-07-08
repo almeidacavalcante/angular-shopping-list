@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import * as $ from "../../../../../node_modules/jquery";
 
@@ -20,7 +20,19 @@ import { Price } from '../../../models/Price';
 export class InsertItemComponent {
   public unit: Unit = Unit.Kg;
 
+  @ViewChild('cItem') input: ElementRef;
   @Input('disabled') disabled: boolean = true;
+
+  @Input('focus')
+  set focus(value: boolean) {
+    if (value) {
+      this.input.nativeElement.disabled = false;
+      this.input.nativeElement.focus();
+      this._focus = value;
+    }
+  }
+
+  private _focus: boolean;
 
   public itemName: string;
   public itemNames = [];
@@ -30,7 +42,7 @@ export class InsertItemComponent {
     numberOfChoices: 10,
     debounceTime: 50,
   }
-
+  
   private _subscription: Subscription;
 
   constructor(private service: ItemService) {
@@ -39,6 +51,10 @@ export class InsertItemComponent {
       this.setupSubscription();
 
     })
+  }
+
+  get focus(): boolean {
+    return this._focus;
   }
 
   private setupSubscription() {

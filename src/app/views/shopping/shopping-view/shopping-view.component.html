@@ -9,6 +9,7 @@
       id="typeahead-basic-market" 
       type="text" 
       (keyup.enter)="insertMarket(varMarket.value)"
+      (keyup.tab)="insertMarket(varMarket.value)"
       [ngbTypeahead]="search" 
       [(ngModel)]="marketName" 
       (input)="marketName = $event.target.value" 
@@ -26,7 +27,7 @@
 
 
 
-  <app-insert-item [disabled]="!isMarketSelected"></app-insert-item>
+  <app-insert-item [disabled]="!isMarketSelected" [focus]="isMarketSelected"></app-insert-item>
   <app-list-items [disabled]="isMarketSelected"></app-list-items>
   <button class="btn btn-primary" type="button" (click)="save()" [disabled]="!isFinished">Finalize Shopping List</button>
 </div>
