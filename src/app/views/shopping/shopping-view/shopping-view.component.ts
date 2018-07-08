@@ -65,8 +65,8 @@ export class ShoppingViewComponent implements OnInit {
    * @description Chama o serviço e insere o mercado na shoppingList atual
    */
   public insertMarket(marketName: string) {
-    const market = this.getMarketByName(marketName);
     this.isMarketSelected = true;
+    const market = this.getMarketByName(marketName);
     if (market == null) {
       this.createMarket(marketName);
     } else {
@@ -127,7 +127,8 @@ public search = (text$: Observable<string>) =>
   public clear() {
     this.marketName = '';
     this.isMarketSelected = false;
-    this.isFinished = false;
+    this.isFinished = false;  
+    this.marketService.selectedMarket = null;
   }
 
   /**
