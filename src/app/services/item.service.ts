@@ -26,8 +26,9 @@ export class ItemService {
   public purchaseEvent: EventEmitter<PriceComponent> = new EventEmitter();
 
   constructor(private dao: ItemDaoService) {
-    this.itemsPromise = this.dao.getAll();    
+    this.itemsPromise = this.dao.getAll();   
     this.itemsPromise.then(items => {
+
       this._storedItems = items
       this.itemEvent.emit();
     })

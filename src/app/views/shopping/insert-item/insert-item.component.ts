@@ -23,47 +23,22 @@ export class InsertItemComponent {
   @ViewChild('cItem') input: ElementRef;
   @Input('disabled') disabled: boolean = true;
 
-  @Input('focus')
-  set focus(value: boolean) {
+  @Input('onFocus') set onFocus(value: boolean) {
     if (value) {
       this.input.nativeElement.disabled = false;
       this.input.nativeElement.focus();
-      this._focus = value;
     }
   }
-
-  private _focus: boolean;
-
+  
   public itemName: string;
   public itemNames = [];
-
+  
   private config = {
     characters: 1,
     numberOfChoices: 10,
     debounceTime: 50,
   }
-  
-  private _subscription: Subscription;
 
-  constructor(private service: ItemService) {
-    this._subscription = service.itemEvent.subscribe( (items) => {
-      console.log('SUBSCRIBE');
-      this.setupSubscription();
-
-    })
-  }
-
-  get focus(): boolean {
-    return this._focus;
-  }
-
-  private setupSubscription() {
-      this.service.storedItems.forEach( item => {
-        this.itemNames.push(item.name);
-        
-      })
-  }
-  
   public search = 
     (text$: Observable<string>) =>
     text$.pipe(
@@ -72,6 +47,23 @@ export class InsertItemComponent {
       map(term => term.length < this.config.characters ? []
         : this.itemNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, this.config.numberOfChoices))
     );
+  
+  private _subscription: Subscription;
+
+  constructor(private service: ItemService) {
+    this._subscription = service.itemEvent.subscribe( (items) => {
+      this.setupSubscription();
+    })
+  }
+
+
+  private setupSubscription() {
+      this.service.storedItems.forEach( item => {
+        this.itemNames.push(item.name);
+        
+      })
+  }
+  
   
   private insertItem() {
     if (this.itemName != '') {

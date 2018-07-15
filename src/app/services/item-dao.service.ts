@@ -25,7 +25,6 @@ export class ItemDaoService implements GenericDao<Item> {
   constructor(private db: AngularFireDatabase) {
     this.itemsRef = this.db.list('/items') as AngularFireList<Item>;
     this.itemsSnapshotChanges$ = this.itemsRef.snapshotChanges();
-    this.getAll();
   }
 
   create(model: Item): Promise<Item> {
@@ -60,7 +59,6 @@ export class ItemDaoService implements GenericDao<Item> {
     return new Promise( (resolve, reject) => {
       this.itemsSnapshotChanges$.subscribe( (snapshot: any[]) => {
         snapshot.forEach( snapshotItem => {     
-        
           let item = ItemConverter.setupItem(snapshotItem.payload.val());
           item.id = snapshotItem.key;
 

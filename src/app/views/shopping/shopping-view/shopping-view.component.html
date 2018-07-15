@@ -27,7 +27,7 @@
 
 
 
-  <app-insert-item [disabled]="!isMarketSelected" [focus]="isMarketSelected"></app-insert-item>
+  <app-insert-item [disabled]="!isMarketSelected" [onFocus]="isMarketSelected"></app-insert-item>
   <app-list-items [disabled]="isMarketSelected"></app-list-items>
   <button class="btn btn-primary" type="button" (click)="save()" [disabled]="!isFinished">Finalize Shopping List</button>
 </div>
