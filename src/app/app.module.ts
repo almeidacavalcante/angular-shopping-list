@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { environment } from "../environments/environment";
@@ -18,12 +18,14 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { ZippyComponent } from './common/zippy/zippy.component';
 import { AppRoutingModule } from './modules/routing/app.routing.module';
 import { ShoppingListsService } from './services/shopping-lists.service';
+import { SignupComponent } from './views/signup/signup.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     ShoppingModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'shopping-list-app2018')
   ], 
@@ -33,7 +35,8 @@ import { ShoppingListsService } from './services/shopping-lists.service';
     NavbarComponent,
     PreviousListsComponent,
     ListDetailComponent,
-    ZippyComponent
+    ZippyComponent,
+    SignupComponent
     
   ],
   providers: [

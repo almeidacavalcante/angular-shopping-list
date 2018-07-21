@@ -1,0 +1,44 @@
+<div class="container">
+  <h3>Sign Up</h3>
+  <hr>
+  <form [formGroup]="form" (submit)="submit()">
+    <label for="name">Name</label>
+    <input formControlName="name" placeholder="Type your name..." type="text" class="form-control" name="name">
+    <br>
+    <div *ngIf="name.errors" class="alert alert-warning">
+      <div>The minimum length for a name is 3 characters.</div>
+    </div>
+
+    <label for="email">Email</label>
+    <input formControlName="email" placeholder="Type your most used email..." type="text" class="form-control" name="email">
+    <br>
+    <div *ngIf="email.errors" class="alert alert-warning">
+      <div>This is not a valid email.</div>
+      <div>This email has already been taken.</div>
+    </div>
+
+    <label for="username">Username</label>
+    <input formControlName="username" placeholder="Type the username..." type="text" class="form-control" name="username">
+    <br>
+    <div *ngIf="username.errors" class="alert alert-warning">
+      <div>This is not a valid username.</div>
+      <div>This username has already been taken.</div>
+    </div>
+
+    <label for="password">Password</label>
+    <input formControlName="password" placeholder="Type the password..." type="password" class="form-control" name="password">
+    <br>
+    <div *ngIf="password.errors" class="alert alert-warning">
+      <div>The minimum length for a password is 6 characters.</div>
+    </div>
+
+    <label for="confirm">Confirm Password</label>
+    <input formControlName="confirm" placeholder="Type the password confirmation..." type="password" class="form-control" name="confirm">
+    <br>
+    <div *ngIf="confirma.errors" class="alert alert-warning">
+      <div>This confirmation password doesn't match.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
+</div>
